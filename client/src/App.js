@@ -1,42 +1,44 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import Navbar from 'react-bootstrap/Navbar'
+// import Container from 'react-bootstrap/Container'
+import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
+// import Navbar from 'react-bootstrap/Navbar'
 import Badge from 'react-bootstrap/Badge'
-import Footer from './screen/Components/Footer'
-import HomeScreen from './screen/HomeScreen'
-import ProductScreen from './screen/ProductScreen'
-import { useContext, useEffect, useState } from 'react'
-import { Store } from './Store'
-import CartScreen from './screen/CartScreen'
-import SigninScreen from './screen/SigninScreen'
+import Nav from 'react-bootstrap/Nav'
 import { LinkContainer } from 'react-router-bootstrap'
-import ShippingAddressScreen from './screen/ShippingAddressScreen'
-import SignupScreen from './screen/SignupScreen'
-import Container from 'react-bootstrap/Container'
-import PaymentMethodScreen from './screen/PaymentMethodScreen'
-import PlaceOrderScreen from './screen/PlaceOrderScreen'
-import OrderScreen from './screen/OrderScreen'
-import OrderHistoryScreen from './screen/OrderHistoryScreen'
-import ProfileScreen from './screen/ProfileScreen'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+// import { LinkContainer } from 'react-router-bootstrap'
+import { useContext, useEffect, useState } from 'react'
+import { StoreContext } from './contexts/StoreContext'
+import CartScreen from './screens/CartScreen'
+import SigninScreen from './screens/SigninScreen'
+import SignupScreen from './screens/SignupScreen'
+import ShippingAddressScreen from './screens/ShippingAddressScreen'
+import PaymentMethodScreen from './screens/PaymentMethodScreen'
+import PlaceOrderScreen from './screens/PlaceOrderScreen'
+import OrderScreen from './screens/OrderScreen'
+import OrderHistoryScreen from './screens/OrderHistoryScreen'
+import ProfileScreen from './screens/ProfileScreen'
+import SearchScreen from './screens/SearchScreen'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios'
 import { getError } from './utils'
-import SearchBox from './screen/Components/SearchBox'
-import SearchScreen from './screen/SearchScreen'
-import ProtectedRoute from './screen/Components/ProtectedRoute'
-import DashboardScreen from './screen/DashboardScreen'
-import AdminRoute from './screen/Components/AdminRoute'
+import authFetch from './axios/custom'
+import SearchBox from './components/SearchBox'
+import ProtectedRoute from './components/ProtectedRoute'
+import DashboardScreen from './screens/DashboardScreen'
+import AdminRoute from './components/AdminRoute'
+import AdminProductScreen from './screens/AdminProductScreen'
+import AdminOrdersScreen from './screens/AdminOrderScreen'
+import UsersScreen from './screens/UsersScreen'
 
 function App() {
-  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { state, dispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
 
-  const signOutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT' })
+  const signoutHandler = () => {
+    dispatch({ type: 'USER_SIGNOUT' })
     localStorage.removeItem('userInfo')
     localStorage.removeItem('shippingAddress')
     localStorage.removeItem('paymentMethod')
@@ -49,7 +51,7 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`)
+        const { data } = await authFetch(`/api/products/categories`)
         setCategories(data)
       } catch (err) {
         toast.error(getError(err))
@@ -62,119 +64,317 @@ function App() {
     <BrowserRouter>
       <div
         className={
-          sidebarIsOpen
-            ? 'd-flex flex-column site-container active-cont'
-            : 'd-flex flex-column site-container'
+          sidebarIsOpen ? 'site-container active-cont' : 'site-container'
         }
       >
-        <ToastContainer position='bottom-center' limit={1} />
-        <header>
-          <Navbar variant='dark my-nav' expand='lg'>
-            <Container className='top-nav'>
-              <Button
-                className='nav-btn'
-                variant='dark'
-                onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
-              >
-                <i className='fas fa-bars'></i>
-              </Button>
-              <div>
-                {/* <div className='logo_cont'> */}
-                <Link to='/'>
-                  <img src='../images/gross.png' className='logo' alt='logo' />
+        <ToastContainer position='top-center' limit={1} />
+        <div className='lg-prof'>
+          <header>
+            {/* <Button
+              variant='success'
+              className='dis_none'
+              onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
+            >
+              <i className='fas fa-bars'></i>
+            </Button> */}
+            <img src='/images/naira01.png' alt='logo' className='logo_img2' />
+            <div className='nav_logo'>
+              <Link to='/' className='logo_cont'>
+                <img
+                  src='/images/gross02.png'
+                  alt='logo'
+                  className='logo_img'
+                />
+                {/* <p className='logo_text dis_none'>Gross Investment</p> */}
+              </Link>
+              {/* <SearchBox /> */}
+            </div>
+
+            <div className='nav_profile'>
+              <Link to='/cart' className='nav-link'>
+                <i className='fa-solid fa-cart-shopping fa-beat i-color'>
+                  {cart.cartItems.length > 0 && (
+                    <Badge pill bg='danger'>
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Badge>
+                  )}
+                </i>
+              </Link>
+              {userInfo ? (
+                <NavDropdown
+                  title={userInfo.name}
+                  id='basic-nav-dropdown'
+                  className='user_pro'
+                >
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item className='sm-font'>
+                      User Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to='/orderhistory'>
+                    <NavDropdown.Item className='sm-font'>
+                      Order History
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider />
+
+                  <Link
+                    className='dropdown-item sm-font'
+                    to='#signout'
+                    onClick={signoutHandler}
+                  >
+                    Sign Out{' '}
+                  </Link>
+                </NavDropdown>
+              ) : (
+                <Link className='nav-link' to='/signin'>
+                  Sign In
                 </Link>
-              </div>
-              <div className='nav-top-right'>
-                <Navbar.Toggle arial-controls='basic-navbar-nav' />
-                <Navbar.Collapse id='basic-navbar-nav'>
-                  <SearchBox />
-                  <Nav className='me-auto w-100 justify-content-end'>
-                    <Link to='/cart' className='nav-link'>
-                      <strong>Cart</strong>
-                      {cart.cartItems.length > 0 && (
-                        <Badge pill bg='danger'>
-                          {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                        </Badge>
-                      )}
-                    </Link>
-                    {userInfo ? (
-                      <NavDropdown
-                        title={userInfo.name}
-                        id='basic-nav-dropdown'
-                      >
-                        <LinkContainer to='/profile'>
-                          <NavDropdown.Item>User Profile</NavDropdown.Item>
-                        </LinkContainer>
-                        <LinkContainer to='/orderhistory'>
-                          <NavDropdown.Item>Order History</NavDropdown.Item>
-                        </LinkContainer>
-                        <NavDropdown.Divider />
-                        <Link
-                          className='dropdown-item'
-                          to='#signout'
-                          onClick={signOutHandler}
-                        >
-                          Sign Out
-                        </Link>
-                      </NavDropdown>
-                    ) : (
-                      <Link className='nav-link' to='/signin'>
-                        Sign In
-                      </Link>
-                    )}
-                    {userInfo && userInfo.isAdmin && (
-                      <NavDropdown title='Admin' id='admin-nav-dropdown'>
-                        <LinkContainer to='/admin/dashboard'>
-                          <NavDropdown.Item>Dashboard</NavDropdown.Item>
-                        </LinkContainer>
-                        <LinkContainer to='/admin/productlist'>
-                          <NavDropdown.Item>Products</NavDropdown.Item>
-                        </LinkContainer>
-                        <LinkContainer to='/admin/orderlist'>
-                          <NavDropdown.Item>Orders</NavDropdown.Item>
-                        </LinkContainer>
-                        <LinkContainer to='/admin/userlist'>
-                          <NavDropdown.Item>Users</NavDropdown.Item>
-                        </LinkContainer>
-                      </NavDropdown>
-                    )}
-                  </Nav>
-                </Navbar.Collapse>
-              </div>
-            </Container>
-          </Navbar>
-        </header>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown
+                  title='Admin'
+                  id='admin-nav-dropdown'
+                  className='dis_none'
+                >
+                  <LinkContainer to='/admin/dashboard'>
+                    <NavDropdown.Item className='sm-font'>
+                      Dashboard
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item className='sm-font'>
+                      Products
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item className='sm-font'>
+                      Orders
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item className='sm-font'>
+                      Users
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
+            </div>
+          </header>
+        </div>
+
+        <div className='sm-prof'>
+          <header>
+            <div className='nav_logo'>
+              <img src='/images/naira01.png' alt='logo' className='logo_img1' />
+              <Link to='/' className='logo_cont'>
+                <img
+                  src='/images/gross_mobile.png'
+                  alt='logo'
+                  className='logo_img'
+                />
+              </Link>
+            </div>
+
+            <div className='nav_profile'>
+              <Link to='/cart' className='nav-link'>
+                <i className='fa-solid fa-cart-shopping fa-beat i-color'>
+                  {cart.cartItems.length > 0 && (
+                    <Badge pill bg='danger'>
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Badge>
+                  )}
+                </i>
+              </Link>
+
+              {/* {userInfo ? (
+								<NavDropdown
+									title={userInfo.name}
+									id='basic-nav-dropdown'
+									className='user_pro'
+								>
+									<LinkContainer to='/profile'>
+										<NavDropdown.Item className='sm-font'>
+											User Profile
+										</NavDropdown.Item>
+									</LinkContainer>
+
+									<LinkContainer to='/orderhistory'>
+										<NavDropdown.Item className='sm-font'>
+											Order History
+										</NavDropdown.Item>
+									</LinkContainer>
+
+									<NavDropdown.Divider />
+
+									<Link
+										className='dropdown-item sm-font'
+										to='#signout'
+										onClick={signoutHandler}
+									>
+										Sign Out{' '}
+									</Link>
+								</NavDropdown>
+							) : (
+								<Link className='nav-link' to='/signin'>
+									Sign In
+								</Link>
+							)} */}
+
+              {userInfo && userInfo.isAdmin ? (
+                <NavDropdown
+                  title='Admin'
+                  id='admin-nav-dropdown'
+                  // className='dis_none'
+                >
+                  <LinkContainer to='/admin/dashboard'>
+                    <NavDropdown.Item className='sm-font'>
+                      Dashboard
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item className='sm-font'>
+                      Products
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item className='sm-font'>
+                      Orders
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item className='sm-font'>
+                      Users
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item className='sm-font'>
+                      User Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to='/orderhistory'>
+                    <NavDropdown.Item className='sm-font'>
+                      Order History
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider />
+
+                  <Link
+                    className='dropdown-item sm-font'
+                    to='#signout'
+                    onClick={signoutHandler}
+                  >
+                    Sign Out{' '}
+                  </Link>
+                </NavDropdown>
+              ) : userInfo ? (
+                <NavDropdown
+                  title={userInfo.name}
+                  id='basic-nav-dropdown'
+                  className='user_pro'
+                >
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item className='sm-font'>
+                      User Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to='/orderhistory'>
+                    <NavDropdown.Item className='sm-font'>
+                      Order History
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider />
+
+                  <Link
+                    className='dropdown-item sm-font'
+                    to='#signout'
+                    onClick={signoutHandler}
+                  >
+                    Sign Out{' '}
+                  </Link>
+                </NavDropdown>
+              ) : (
+                <Link className='nav-link' to='/signin'>
+                  Sign In
+                </Link>
+              )}
+            </div>
+          </header>
+        </div>
 
         <div
           className={
             sidebarIsOpen
-              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column  link-pad'
-              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
+              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column dis_none'
+              : 'side-navbar d-flex justify-content-between flex-wrap flex-column dis_none'
           }
         >
-          <Nav className='flex-column text-white w-100 p-2'>
+          <Nav className='flex-column text-white w-100 p-2 dis_none'>
             <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>
-                <Link
-                  className='side-nav'
-                  to={`/search?category=${category}`}
+                <LinkContainer
+                  to={{
+                    pathname: '/search',
+                    hash: '#hash',
+                    search: `?category=${category}`,
+                  }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <p className='pl-10 pt-10'>{category}</p>
-                </Link>
+                  <Nav.Link>{category}</Nav.Link>
+                </LinkContainer>
               </Nav.Item>
             ))}
           </Nav>
         </div>
 
-        <main className='scr-pad'>
+        <main className='pt-3'>
           <Routes>
-            <Route path='/product/:slug' element={<ProductScreen />} />
+            <Route path='/' element={<HomeScreen />} />
+            {/* Admin Routes */}
+            <Route
+              path='/admin/dashboard'
+              element={
+                <AdminRoute>
+                  <DashboardScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/productlist'
+              element={
+                <AdminRoute>
+                  <AdminProductScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/orderlist'
+              element={
+                <AdminRoute>
+                  <AdminOrdersScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/userlist'
+              element={
+                <AdminRoute>
+                  <UsersScreen />
+                </AdminRoute>
+              }
+            />
+            <Route path='/product/:_id' element={<ProductScreen />} />
             <Route path='/cart' element={<CartScreen />} />
-            <Route path='/search' element={<SearchScreen />} />
             <Route path='/signin' element={<SigninScreen />} />
             <Route path='/signup' element={<SignupScreen />} />
             <Route
@@ -185,6 +385,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path='/shipping' element={<ShippingAddressScreen />} />
+            <Route path='/payment' element={<PaymentMethodScreen />} />
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route
               path='/order/:id'
@@ -202,22 +404,12 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path='/shipping' element={<ShippingAddressScreen />} />
-            <Route path='/payment' element={<PaymentMethodScreen />} />
-            {/* AdminRoutes */}
-            <Route
-              path='/admin/dashboard'
-              element={
-                <AdminRoute>
-                  <DashboardScreen />
-                </AdminRoute>
-              }
-            />
-            <Route path='/' element={<HomeScreen />} />
+            <Route path='/search' element={<SearchScreen />} />
           </Routes>
         </main>
+
         <footer>
-          <Footer />
+          <div>{`All rights reserved - JustFidel ©${new Date().getFullYear()}`}</div>
         </footer>
       </div>
     </BrowserRouter>
