@@ -81,7 +81,7 @@ function App() {
             <div className='nav_logo'>
               <Link to='/' className='logo_cont'>
                 <img
-                  src='/images/gross02.png'
+                  src='/images/gross01.png'
                   alt='logo'
                   className='logo_img'
                 />
@@ -92,7 +92,7 @@ function App() {
 
             <div className='nav_profile'>
               <Link to='/cart' className='nav-link'>
-                <i className='fa-solid fa-cart-shopping fa-beat i-color'>
+                <i className='fa-solid fa-briefcase fa-beat i-color'>
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg='danger'>
                       {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -180,9 +180,9 @@ function App() {
 
             <div className='nav_profile'>
               <Link to='/cart' className='nav-link'>
-                <i className='fa-solid fa-cart-shopping fa-beat i-color'>
+                <i className='fa-solid fa-briefcase fa-beat i-color'>
                   {cart.cartItems.length > 0 && (
-                    <Badge pill bg='danger'>
+                    <Badge pill bg='danger'>s
                       {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </Badge>
                   )}
