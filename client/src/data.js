@@ -10,7 +10,7 @@ const data = {
       brand: 'Starters',
       rating: 4,
       numReviews: 15,
-      description: '30% return on investment',
+      description: '30% Interest',
     },
     {
       name: 'Silver',
@@ -22,7 +22,7 @@ const data = {
       brand: 'Silver',
       rating: 4.5,
       numReviews: 15,
-      description: '30% return on investment',
+      description: '30% Interest',
     },
     {
       name: 'Gold',
@@ -34,7 +34,7 @@ const data = {
       brand: 'Gold',
       rating: 5,
       numReviews: 20,
-      description: '40% return on investment',
+      description: '40% Interest',
     },
     {
       name: 'Diamond',
@@ -46,7 +46,7 @@ const data = {
       brand: 'Diamond',
       rating: 5,
       numReviews: 20,
-      description: '40% return on investment',
+      description: '40% Interest',
     },
     {
       name: 'Platinium',
@@ -58,7 +58,7 @@ const data = {
       brand: 'Platinium',
       rating: 5,
       numReviews: 30,
-      description: '45% return on investment',
+      description: '45% Interest',
     },
     {
       name: 'Master',
@@ -70,7 +70,7 @@ const data = {
       brand: 'Master',
       rating: 5,
       numReviews: 30,
-      description: '45% return on investment',
+      description: '45% Interest',
     },
     {
       name: 'Grandmaster',
@@ -82,7 +82,7 @@ const data = {
       brand: 'Grandmaster',
       rating: 5,
       numReviews: 30,
-      description: '50% return on investment',
+      description: '50% Interest',
     },
     {
       name: 'Legendary',
@@ -94,7 +94,7 @@ const data = {
       brand: 'Legendary',
       rating: 5,
       numReviews: 30,
-      description: '50% return on investment',
+      description: '50% Interest',
     },
   ],
 }

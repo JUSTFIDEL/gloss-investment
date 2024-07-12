@@ -22,16 +22,16 @@ import OrderScreen from './screens/OrderScreen'
 import OrderHistoryScreen from './screens/OrderHistoryScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import SearchScreen from './screens/SearchScreen'
-import Button from 'react-bootstrap/Button'
 import { getError } from './utils'
 import authFetch from './axios/custom'
-import SearchBox from './components/SearchBox'
 import ProtectedRoute from './components/ProtectedRoute'
 import DashboardScreen from './screens/DashboardScreen'
 import AdminRoute from './components/AdminRoute'
 import AdminProductScreen from './screens/AdminProductScreen'
 import AdminOrdersScreen from './screens/AdminOrderScreen'
 import UsersScreen from './screens/UsersScreen'
+// import SearchBox from './components/SearchBox'
+// import Button from 'react-bootstrap/Button'
 
 function App() {
   const { state, dispatch } = useContext(StoreContext)
@@ -182,7 +182,7 @@ function App() {
               <Link to='/cart' className='nav-link'>
                 <i className='fa-solid fa-briefcase fa-beat i-color'>
                   {cart.cartItems.length > 0 && (
-                    <Badge pill bg='danger'>s
+                    <Badge pill bg='danger'>
                       {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </Badge>
                   )}
@@ -373,7 +373,7 @@ function App() {
                 </AdminRoute>
               }
             />
-            <Route path='/product/:_id' element={<ProductScreen />} />
+            <Route path='/product/:slug' element={<ProductScreen />} />
             <Route path='/cart' element={<CartScreen />} />
             <Route path='/signin' element={<SigninScreen />} />
             <Route path='/signup' element={<SignupScreen />} />
@@ -409,7 +409,7 @@ function App() {
         </main>
 
         <footer>
-          <div>{`All rights reserved - JustFidel ©${new Date().getFullYear()}`}</div>
+          <div>{`All rights reserved - Gloss ©${new Date().getFullYear()}`}</div>
         </footer>
       </div>
     </BrowserRouter>

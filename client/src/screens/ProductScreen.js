@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import authFetch from '../axios/custom'
+// import authFetch from '../axios/custom'
 import Row from 'react-bootstrap/esm/Row'
 import Col from 'react-bootstrap/esm/Col'
 import Card from 'react-bootstrap/esm/Card'
@@ -14,6 +14,7 @@ import LoadingBox from '../components/LoadingBox'
 import { getError } from '../utils'
 import { StoreContext } from '../contexts/StoreContext'
 import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,7 +31,8 @@ const reducer = (state, action) => {
 }
 
 const ProductScreen = () => {
-  const { _id } = useParams()
+  const params = useParams()
+  const { slug } = params
   const navigate = useNavigate()
 
   const [{ product, error, loading }, dispatch] = useReducer(reducer, {
@@ -39,20 +41,21 @@ const ProductScreen = () => {
     loading: true,
   })
 
-  const url = `/api/products/id/${_id}`
+  // /api/products/slug/${slug}
 
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const result = await authFetch(url)
+        const result = await axios.get(`/api/products/slug/${slug}`)
+        // const result = await authFetch(url)
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
       } catch (error) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(error) })
       }
     }
     fetchData()
-  }, [url])
+  }, [slug])
 
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart } = state
@@ -61,7 +64,8 @@ const ProductScreen = () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1
     const url = `/api/products/${product._id}`
-    const { data } = await authFetch(url)
+    const { data } = await axios.get(url)
+    // const { data } = await authFetch(url)
 
     // if (data.countInStock < quantity) {
     // 	alert('Sorry, Product is out of stock')
@@ -80,7 +84,9 @@ const ProductScreen = () => {
   }
 
   return loading ? (
-    <LoadingBox />
+    <div className='loading_cont'>
+      <LoadingBox />
+    </div>
   ) : error ? (
     <MessageBox variant='danger'>{error}</MessageBox>
   ) : (
@@ -95,14 +101,18 @@ const ProductScreen = () => {
               <Helmet>
                 <title>{product.name}</title>
               </Helmet>
-              <h1>{product.name}</h1>
+              <h1>{product.name} Package</h1>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating rating={product.rating} numReviews={product.numReviews} />
             </ListGroup.Item>
-            <ListGroup.Item>Price: ₦{product.price}</ListGroup.Item>
             <ListGroup.Item>
-              <p>Description: {product.description}</p>
+              <strong>Price:</strong> ₦{product.price}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <p>
+                <strong>Description:</strong> {product.description}
+              </p>
             </ListGroup.Item>
           </ListGroup>
         </Col>
@@ -112,16 +122,20 @@ const ProductScreen = () => {
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Price:</Col>
-                    <Col>N{product.price}</Col>
+                    <Col>
+                      <strong>Price:</strong>
+                    </Col>
+                    <Col>₦{product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Status:</Col>
+                    <Col>
+                      <strong>Status:</strong>
+                    </Col>
                     <Col>
                       {product.countInStock > 0 ? (
-                        <Badge bg='success'>In Stock</Badge>
+                        <Badge bg='success'>Pending</Badge>
                       ) : (
                         <Badge bg='danger'>Out of Stock</Badge>
                       )}
@@ -133,7 +147,7 @@ const ProductScreen = () => {
                   <ListGroup.Item>
                     <div className='d-grid'>
                       <Button variant='success' onClick={addToCartHandler}>
-                        Add to Cart
+                        Select
                       </Button>
                     </div>
                   </ListGroup.Item>

@@ -1,7 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import authFetch from '../axios/custom'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+// import authFetch from '../axios/custom'
 import Products from '../components/Products'
 import { Helmet } from 'react-helmet-async'
 import LoadingBox from '../components/LoadingBox'
@@ -9,6 +7,9 @@ import MessageBox from '../components/MessageBox'
 import { getError } from '../utils'
 import Button from 'react-bootstrap/esm/Button'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+// import Row from 'react-bootstrap/Row'
+// import Col from 'react-bootstrap/Col'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -32,13 +33,12 @@ const HomeScreen = () => {
     loading: true,
   })
 
-  const url = '/api/products'
-
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const result = await authFetch(url)
+        const result = await axios.get('/api/products')
+        // const result = await axios.get('http://localhost:8000/api/products')
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
       } catch (error) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(error) })
@@ -51,18 +51,18 @@ const HomeScreen = () => {
   return (
     <div className='sm_container'>
       <Helmet>
-        <title>Gross</title>
+        <title>Home | Gross</title>
       </Helmet>
-      <div className='max-width'>
+      <div>
         <h1 className='dark_gradient p_dropIn'>
-          Invest and make <span className='text-blue-600'>MONEY</span> while
+          Invest and make <span className='green_gradient'>MONEY</span> while
           asleep.
         </h1>
 
         <div className='hero_cont'>
           <div className='hero_text'>
-            <span className='p_fadeOff textGray'>
-              Welcome! In Gross, we believe in the power of collaboration and
+            <p className='p_fadeOff textGray'>
+              {/* Welcome! In Gross, we believe in the power of collaboration and
               mutual support among our members. By coming together and pooling
               our resources, we are able to build a larger capital base that
               opens up greater opportunities for investment. <br />
@@ -71,8 +71,20 @@ const HomeScreen = () => {
               portfolio, minimize risks, and potentially achieve higher returns.
               Our shared goal is to work together towards financial growth and
               success, leveraging the strength of our combined resources to
-              secure a brighter future for all members involved.
-            </span>
+              secure a brighter future for all members involved. */}
+              Welcome! At Gross, we emphasize the strength of collaboration and
+              support among our members. By uniting and combining resources, we
+              can expand our capital base for diverse investment opportunities.
+              This strategy enables us to invest in various assets such as
+              cryptocurrencies like Bitcoin, USDT, and Ethereum, as well as
+              traditional resources like Gold and Forex trading. <br />
+              <br />
+              Through our collective effort, we aim to diversify our investment
+              portfolio, mitigate risks, and strive for greater returns. Our
+              shared vision is to foster financial growth and success by
+              leveraging our combined resources to pave the way for a prosperous
+              future for all members.
+            </p>
           </div>
           <div className='hero_img'>
             <img
@@ -84,28 +96,35 @@ const HomeScreen = () => {
         </div>
         <div className='my-3'>
           <Link to='/signup'>
-            <Button variant='success'>Register Now</Button>
+            <Button className='buttonColor'>Register Now</Button>
+          </Link>
+          <Link to='/signin'>
+            <Button className='buttonColor1'>Sign In</Button>
           </Link>
         </div>
       </div>
 
       <div className='m_top'>
-        <h1 className='feat-prod'>Choose an Investment Portfolio below.</h1>
+        <h1 className='feat-prod'>Choose a Portfolio💰.</h1>
       </div>
 
       <div className='products'>
         {loading ? (
-          <LoadingBox />
+          <div>
+            <LoadingBox />
+          </div>
         ) : error ? (
           <MessageBox variant='danger'>{error}</MessageBox>
         ) : (
-          <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={6} md={4} lg={3} className='m_bot'>
-                <Products product={product} />
-              </Col>
-            ))}
-          </Row>
+          products.map((product) => <Products product={product} />)
+
+          // <Row>
+          //   {products.map((product) => (
+          //     <Col key={product._id} sm={6} md={4} lg={3} className='m_bot'>
+          //       <Products product={product} />
+          //     </Col>
+          //   ))}
+          // </Row>
         )}
       </div>
     </div>
