@@ -70,7 +70,7 @@ export default function OrderHistoryScreen() {
                   <th>DATE</th>
                   <th>TOTAL</th>
                   <th>PAID</th>
-                  <th>DELIVERED</th>
+                  <th>DUE</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
@@ -80,8 +80,9 @@ export default function OrderHistoryScreen() {
                     <td>{order._id}</td>
                     <td>{order.createdAt.substring(0, 10)}</td>
                     <td>{order.totalPrice.toFixed(2)}</td>
-                    <td>{order.isPaid ? order.paidAt : 'No'}</td>
-                    <td>{order.isDelivered ? order.deliveredAt : 'No'}</td>
+                    <td>{order.isPaid ? 'Yes' : 'No'}</td>
+                    {/* <td>{order.isPaid ? order.paidAt : 'No'}</td> */}
+                    <td>{order.isDue ? 'Yes' : 'No'}</td>
                     <td>
                       <Button
                         type='button'
@@ -112,14 +113,12 @@ export default function OrderHistoryScreen() {
                   <strong>TOTAL:</strong> {order.totalPrice.toFixed(2)}
                 </p>
                 <p>
-                  <strong>PAID:</strong> {order.isPaid ? order.paidAt : 'No'}
+                  <strong>PAID:</strong> {order.isPaid ? 'Yes' : 'No'}
                 </p>
                 <p>
-                  <strong>DELIVERED:</strong>{' '}
-                  {order.isDelivered ? order.deliveredAt : 'No'}
+                  <strong>DUE:</strong> {order.isDue ? 'Yes' : 'No'}
                 </p>
                 <p>
-                  <strong>ACTION: </strong>{' '}
                   <Button
                     type='button'
                     variant='dark'

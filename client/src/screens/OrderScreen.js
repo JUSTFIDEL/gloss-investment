@@ -153,20 +153,22 @@ export default function OrderScreen() {
         <Col md={8}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Shipping</Card.Title>
+              <Card.Title>Make Payment</Card.Title>
               <Card.Text>
-                <strong>Name: </strong> {order.shippingAddress.fullName}
+                <strong>Name: </strong> {order.bankDetails.fullName}
                 <br />
-                <strong>Address: </strong> {order.shippingAddress.address},
-                {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-                , {order.shippingAddress.country}
+                <strong>Bank: </strong> {order.bankDetails.bank},
+                <br />
+                <strong>Account Number: </strong> {order.bankDetails.accountNum}
+                ,
               </Card.Text>
-              {order.isDelivered ? (
+              {order.isDue ? (
                 <MessageBox variant='success'>
-                  Delivered at {order.deliveredAt}
+                  Due for withdrawal on
+                  {/* Due for withdrawal on {order.deliveredAt} */}
                 </MessageBox>
               ) : (
-                <MessageBox variant='danger'>Not Delivered</MessageBox>
+                <MessageBox variant='danger'>Not Due</MessageBox>
               )}
             </Card.Body>
           </Card>
@@ -217,37 +219,43 @@ export default function OrderScreen() {
         <Col md={4}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title>Investment Summary</Card.Title>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
-                    <Col>N{order.itemsPrice.toFixed(2)}</Col>
+                    <Col>Amount</Col>
+                    <Col>₦{order.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>N{order.shippingPrice.toFixed(2)}</Col>
+                    <Col>₦{order.shippingPrice.toFixed(2)}</Col>
                   </Row>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>N{order.taxPrice.toFixed(2)}</Col>
+                    <Col>₦0.00</Col>
                   </Row>
                 </ListGroup.Item>
+                {/* <ListGroup.Item>
+                  <Row>
+                    <Col>Tax</Col>
+                    <Col>₦{order.taxPrice.toFixed(2)}</Col>
+                  </Row>
+                </ListGroup.Item> */}
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong>Order Total</strong>
+                      <strong>Total</strong>
                     </Col>
                     <Col>
-                      <strong>N{order.totalPrice.toFixed(2)}</strong>
+                      <strong>₦{order.itemsPrice.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                {!order.isPaid && (
+                {/* {!order.isPaid && (
                   <ListGroup.Item>
                     {isPending ? (
                       <LoadingBox />
@@ -262,7 +270,7 @@ export default function OrderScreen() {
                     )}
                     {loadingPay && <LoadingBox></LoadingBox>}
                   </ListGroup.Item>
-                )}
+                )} */}
               </ListGroup>
             </Card.Body>
           </Card>
