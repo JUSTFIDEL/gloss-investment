@@ -46,7 +46,7 @@ function CartScreen() {
   }
 
   const checkoutHandler = () => {
-    navigate('/signin?redirect=/shipping')
+    navigate('/signin?redirect=/bank')
   }
 
   return (
@@ -79,7 +79,7 @@ function CartScreen() {
                         <span className='s-text'>{item.name}</span>
                       </Link>
                     </Col>
-                    <Col md={3} className='center'>
+                    {/* <Col md={3} className='center'>
                       <Button
                         variant='light'
                         disabled={item.quantity === 1}
@@ -99,7 +99,7 @@ function CartScreen() {
                       >
                         <i className='fa-solid fa-plus-circle'></i>
                       </Button>
-                    </Col>
+                    </Col> */}
                     <Col md={3} className='center'>
                       ₦{item.price}
                     </Col>

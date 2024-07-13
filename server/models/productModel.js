@@ -16,11 +16,6 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-// plan?: 'Starter' | 'Silver' | 'Gold' | 'Platinium' | 'Diamond' | 'Master'
-// amount?: number
-// duration?: string
-// naration?: string
-
 const Product = mongoose.model('Product', productSchema)
 
 export default Product

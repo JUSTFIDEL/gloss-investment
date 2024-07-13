@@ -15,7 +15,7 @@ import { StoreContext } from './contexts/StoreContext'
 import CartScreen from './screens/CartScreen'
 import SigninScreen from './screens/SigninScreen'
 import SignupScreen from './screens/SignupScreen'
-import ShippingAddressScreen from './screens/ShippingAddressScreen'
+import BankDetailsScreen from './screens/BankDetailsScreen'
 import PaymentMethodScreen from './screens/PaymentMethodScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
@@ -30,6 +30,7 @@ import AdminRoute from './components/AdminRoute'
 import AdminProductScreen from './screens/AdminProductScreen'
 import AdminOrdersScreen from './screens/AdminOrderScreen'
 import UsersScreen from './screens/UsersScreen'
+// import ShippingAddressScreen from './screens/BankDetailsScreen'
 // import SearchBox from './components/SearchBox'
 // import Button from 'react-bootstrap/Button'
 
@@ -385,7 +386,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path='/shipping' element={<ShippingAddressScreen />} />
+            <Route path='/bank' element={<BankDetailsScreen />} />
             <Route path='/payment' element={<PaymentMethodScreen />} />
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route

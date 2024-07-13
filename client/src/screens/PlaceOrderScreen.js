@@ -53,7 +53,7 @@ export default function PlaceOrderScreen() {
         'http://localhost:8000/api/orders',
         {
           orderItems: cart.cartItems,
-          shippingAddress: cart.shippingAddress,
+          bankDetails: cart.bankDetails,
           paymentMethod: cart.paymentMethod,
           itemsPrice: cart.itemsPrice,
           shippingPrice: cart.shippingPrice,
@@ -93,14 +93,13 @@ export default function PlaceOrderScreen() {
         <Col md={8}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Shipping</Card.Title>
+              <Card.Title>Bank Details</Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                <strong>Address:</strong> {cart.shippingAddress.address},{' '}
-                {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},{' '}
-                {cart.shippingAddress.country}
+                <strong>Name:</strong> {cart.bankDetails.fullName} <br />
+                <strong>Bank:</strong> {cart.bankDetails.bank} <br />
+                <strong>Account Number:</strong> {cart.bankDetails.accountNum}
               </Card.Text>
-              <Link to='/shipping'>Edit</Link>
+              <Link to='/bank'>Edit</Link>
             </Card.Body>
           </Card>
 
@@ -149,22 +148,23 @@ export default function PlaceOrderScreen() {
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
-                    <Col>N{cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>Amount</Col>
+                    <Col>₦{cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
 
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>N{cart.shippingPrice.toFixed(2)}</Col>
+                    <Col>₦{cart.shippingPrice.toFixed(2)}</Col>
                   </Row>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
 
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>N{cart.taxPrice.toFixed(2)}</Col>
+                    <Col>₦0.00</Col>
+                    {/* <Col>₦{cart.taxPrice.toFixed(2)}</Col> */}
                   </Row>
                 </ListGroup.Item>
 
@@ -172,10 +172,19 @@ export default function PlaceOrderScreen() {
                   <Row>
                     <Col>Order Total</Col>
                     <Col>
-                      <strong>N{cart.totalPrice.toFixed(2)}</strong>
+                      <strong>₦{cart.itemsPrice.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
+                {/* <ListGroup.Item>
+                  <Row>
+                    <Col>Order Total</Col>
+                    <Col>
+                      <strong>₦{cart.totalPrice.toFixed(2)}</strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item> */}
 
                 <ListGroup.Item>
                   <div>
