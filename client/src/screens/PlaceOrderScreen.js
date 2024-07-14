@@ -12,6 +12,7 @@ import axios from 'axios'
 import { StoreContext } from '../contexts/StoreContext'
 import CheckoutStep from '../components/CheckoutStep'
 import LoadingBox from '../components/LoadingBox'
+import authFetch from '../axios/custom'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,7 +42,16 @@ export default function PlaceOrderScreen() {
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   )
+
+  // const getTax = async (product) => {
+  //   const url = `/api/products/${product._id}`
+  //   const { data } = await authFetch(url)
+  //   console.log(data.rate)
+  //   return data.rate
+  // }
+
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10)
+  // cart.taxPrice = round2({ getTax } * cart.itemsPrice)
   cart.taxPrice = round2(0.15 * cart.itemsPrice)
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
 
@@ -187,7 +197,7 @@ export default function PlaceOrderScreen() {
                 </ListGroup.Item> */}
 
                 <ListGroup.Item>
-                  <div>
+                  <div className='mb1'>
                     <Button
                       className='signing-btn'
                       type='button'
@@ -195,7 +205,7 @@ export default function PlaceOrderScreen() {
                       disabled={cart.cartItems.length === 0}
                       variant='success'
                     >
-                      Place Order
+                      Make Payment
                     </Button>
                   </div>
                   <div className='pad-top'>{loading && <LoadingBox />}</div>

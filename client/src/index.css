@@ -285,6 +285,13 @@ header i {
   margin-bottom: 1rem;
 }
 
+.center_spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
 .nav_profile {
   display: flex;
   flex-direction: row;
@@ -504,8 +511,26 @@ footer {
   /* max-width: 100%; */
 }
 
+.mt1 {
+  margin-top: 1rem;
+}
+
 .mt2 {
   margin-top: 10px;
+}
+
+.mb1 {
+  margin-bottom: 1rem;
+}
+
+.mxa {
+  max-width: 30px;
+  margin: 0 auto;
+}
+
+.loading_cont {
+  max-width: 30px;
+  margin: 0 auto;
 }
 
 .me-auto {
@@ -646,6 +671,11 @@ element.style {
     margin-top: 0;
   }
 
+  .circle {
+    width: 25px;
+    margin-right: auto;
+  }
+
   .logo_text {
     font-size: 2rem;
 
@@ -668,11 +698,30 @@ element.style {
     margin: 0 0 1.5rem;
   }
 
+  .text2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
   .hero_img {
     flex: 1;
     min-width: 300px;
     max-width: 450px;
     display: inline-block;
+  }
+
+  .spacing0 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .iFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
   }
 
   .hero_img img {

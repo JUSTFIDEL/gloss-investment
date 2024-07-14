@@ -17,6 +17,7 @@ import {
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js/dist/cjs/react-paypal-js.min'
+import Button from 'react-bootstrap/esm/Button'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -140,51 +141,100 @@ export default function OrderScreen() {
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay])
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <div className='loading_cont'>
+      <LoadingBox />
+    </div>
   ) : error ? (
     <MessageBox variant='danger'>{error}</MessageBox>
   ) : (
     <div>
       <Helmet>
-        <title>Order {orderId}</title>
+        <title>Payment Order {orderId}</title>
       </Helmet>
-      <h1 className='my-3'>Order {orderId}</h1>
+      <h1 className='my-3'>Payment Order {orderId}</h1>
       <Row>
         <Col md={8}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Make Payment</Card.Title>
+              <Card.Title>Payment Details:</Card.Title>
               <Card.Text>
-                <strong>Name: </strong> {order.bankDetails.fullName}
+                <strong>Method: </strong> {order.paymentMethod}
                 <br />
-                <strong>Bank: </strong> {order.bankDetails.bank},
+                <strong>Name: </strong> Gross Inv.
                 <br />
-                <strong>Account Number: </strong> {order.bankDetails.accountNum}
-                ,
+                <strong>Bank: </strong> Moniepoint MFB
+                <br />
+                <strong>Account Number: </strong> 8121146164
               </Card.Text>
-              {order.isDue ? (
+              {order.isPaid ? (
                 <MessageBox variant='success'>
-                  Due for withdrawal on
-                  {/* Due for withdrawal on {order.deliveredAt} */}
+                  <div className='iFlex'>
+                    <p className='spacing0'>Paid</p>
+                    <p className='spacing0'>
+                      <img
+                        src='/images/checkmark.svg'
+                        alt='checked'
+                        className='circle'
+                      />
+                    </p>
+                  </div>
+                  {/* Paid at {order.paidAt} */}
                 </MessageBox>
               ) : (
-                <MessageBox variant='danger'>Not Due</MessageBox>
+                <MessageBox variant='danger'>
+                  <div className='iFlex'>
+                    <p className='spacing0'>Not Paid</p>
+                    <p className='spacing0'>
+                      <img src='/images/red-x.svg' alt='X' className='circle' />
+                    </p>
+                  </div>
+                </MessageBox>
               )}
             </Card.Body>
           </Card>
 
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Payment</Card.Title>
+              <Card.Title>Withdrawal Details</Card.Title>
               <Card.Text>
-                <strong>Method: </strong> {order.paymentMethod}
+                <strong>Name: </strong> {order.bankDetails.fullName}
+                <br />
+                <strong>Bank: </strong> {order.bankDetails.bank},
+                <br />
+                <strong>Account Number: </strong> {order.bankDetails.accountNum}
               </Card.Text>
-              {order.isPaid ? (
+              {/* <div className='mb1'>
+                    
+                  </div> */}
+              {order.isDue ? (
                 <MessageBox variant='success'>
-                  Paid at {order.paidAt}
+                  <div className='iFlex'>
+                    <p className='spacing0'>Due for withdrawal</p>
+                    <Button
+                      type='button'
+                      // onClick={placeOrderHandler}
+                      // disabled={}
+                      variant='success'
+                    >
+                      Withdraw
+                    </Button>
+                  </div>
+                  {/* Due for withdrawal on {order.deliveredAt} */}
                 </MessageBox>
               ) : (
-                <MessageBox variant='danger'>Not Paid</MessageBox>
+                <MessageBox variant='danger'>
+                  <div className='iFlex'>
+                    <p className='spacing0'>Not Due for withdrawal</p>
+                    <Button
+                      type='button'
+                      // onClick={placeOrderHandler}
+                      disabled
+                      variant='danger'
+                    >
+                      Withdraw
+                    </Button>
+                  </div>
+                </MessageBox>
               )}
             </Card.Body>
           </Card>

@@ -61,23 +61,28 @@ function CartScreen() {
             <MessageBox>
               Cart is empty.{' '}
               <Link to='/' className='green_1'>
-                Choose portfolio here
+                Choose a portfolio now.
               </Link>
             </MessageBox>
           ) : (
-            <ListGroup>
+            <ListGroup className='mb1'>
               {cartItems.map((item) => (
                 <ListGroup.Item key={item._id}>
-                  <Row className='align-item-center'>
-                    <Col md={4}>
+                  <Row>
+                    <Col md={4} className='center'>
                       <img
                         src={item.image}
                         alt={item.name}
                         className='img-fluid rounded img-thumbnail'
                       ></img>{' '}
                       <Link to={`/product/${item._id}`}>
-                        <span className='s-text'>{item.name}</span>
+                        <span className='green_gradient text2'>
+                          {item.name}
+                        </span>
                       </Link>
+                    </Col>
+                    <Col md={3} className='center'>
+                      {item.rating}% Interest
                     </Col>
                     {/* <Col md={3} className='center'>
                       <Button
