@@ -75,10 +75,8 @@ function CartScreen() {
                         alt={item.name}
                         className='img-fluid rounded img-thumbnail'
                       ></img>{' '}
-                      <Link to={`/product/${item._id}`}>
-                        <span className='green_gradient text2'>
-                          {item.name}
-                        </span>
+                      <Link to={`/product/${item._id}`} className='text2'>
+                        <span className='green_1'>{item.name}</span>
                       </Link>
                     </Col>
                     <Col md={3} className='center'>
@@ -127,11 +125,11 @@ function CartScreen() {
             <Card.Body>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <h3>
+                  <h4>
                     Amount ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    Package) : ₦
+                    Package): <br />₦
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
-                  </h3>
+                  </h4>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className='d-grid'>

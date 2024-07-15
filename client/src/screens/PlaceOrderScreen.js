@@ -51,9 +51,14 @@ export default function PlaceOrderScreen() {
   // }
 
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10)
+  const percentage = cart.itemsPrice > 200000 ? 0.4 : 0.3
   // cart.taxPrice = round2({ getTax } * cart.itemsPrice)
-  cart.taxPrice = round2(0.15 * cart.itemsPrice)
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
+  // cart.taxPrice = round2(
+  //   `{${cart.itemsPrice} > 200000 ? 0.4 : 0.3}` * cart.itemsPrice
+  // )
+  cart.taxPrice = round2(percentage * cart.itemsPrice)
+  cart.totalPrice = cart.itemsPrice + cart.taxPrice
+  // cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
 
   const placeOrderHandler = async () => {
     try {
@@ -103,50 +108,71 @@ export default function PlaceOrderScreen() {
         <Col md={8}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Bank Details</Card.Title>
+              <Card.Title>
+                <strong className='green_1'>Bank Details</strong>
+              </Card.Title>
               <Card.Text>
                 <strong>Name:</strong> {cart.bankDetails.fullName} <br />
                 <strong>Bank:</strong> {cart.bankDetails.bank} <br />
                 <strong>Account Number:</strong> {cart.bankDetails.accountNum}
               </Card.Text>
-              <Link to='/bank'>Edit</Link>
+              <Link to='/bank' className='green_1 link_deco'>
+                Edit
+              </Link>
             </Card.Body>
           </Card>
 
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Payment</Card.Title>
+              <Card.Title className='green_1'>
+                <strong>Payment</strong>
+              </Card.Title>
               <Card.Text>
                 <strong>Method:</strong> {cart.paymentMethod}
               </Card.Text>
-              <Link to='/payment'>Edit</Link>
+              <Link to='/payment' className='green_1 link_deco'>
+                Edit
+              </Link>
             </Card.Body>
           </Card>
 
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Items</Card.Title>
+              <Card.Title className='green_1'>
+                <strong>Items</strong>
+              </Card.Title>
               <ListGroup variant='flush'>
                 {cart.cartItems.map((item) => (
                   <ListGroup.Item key={item._id}>
                     <Row className='align-items-center'>
-                      <Col md={6}>
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className='img-fluid rounded img-thumbnail'
-                        />{' '}
-                        <Link to={`/product/${item._id}`}>{item.name}</Link>
-                      </Col>
-                      <Col md={3}>
-                        <span>{item.quantity}</span>
-                      </Col>
-                      <Col md={3}>{item.price}</Col>
+                      <div className='space_btw'>
+                        <Col md={6}>
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className='img-fluid rounded img-thumbnail'
+                          />{' '}
+                          <Link
+                            to={`/product/${item._id}`}
+                            className='green_1 name_bold'
+                          >
+                            {item.name}
+                          </Link>
+                        </Col>
+                        <Col md={3} className='name_bold'>
+                          <span>{item.quantity}</span>
+                        </Col>
+                        <Col md={3} className='name_bold'>
+                          ₦{item.price}
+                        </Col>
+                      </div>
                     </Row>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <Link to='/cart'>Edit</Link>
+              <Link to='/cart' className='green_1 link_deco'>
+                Edit
+              </Link>
             </Card.Body>
           </Card>
         </Col>
@@ -154,11 +180,13 @@ export default function PlaceOrderScreen() {
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title className='green_1'>
+                <strong>Order Summary</strong>
+              </Card.Title>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Amount</Col>
+                    <Col>Amount:</Col>
                     <Col>₦{cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
@@ -172,7 +200,7 @@ export default function PlaceOrderScreen() {
 
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
+                    <Col>Tax:</Col>
                     <Col>₦0.00</Col>
                     {/* <Col>₦{cart.taxPrice.toFixed(2)}</Col> */}
                   </Row>
@@ -180,7 +208,7 @@ export default function PlaceOrderScreen() {
 
                 <ListGroup.Item>
                   <Row>
-                    <Col>Order Total</Col>
+                    <Col>Total Payment:</Col>
                     <Col>
                       <strong>₦{cart.itemsPrice.toFixed(2)}</strong>
                     </Col>

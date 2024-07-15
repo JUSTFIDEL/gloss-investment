@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 // import {PayPalButtons, PayPalScriptProvider, usePayPalScriptReducer} from '@paypal/react-paypal-js'
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
@@ -18,6 +18,7 @@ import {
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js/dist/cjs/react-paypal-js.min'
 import Button from 'react-bootstrap/esm/Button'
+import DueDate from '../components/DueDate'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -44,6 +45,11 @@ const reducer = (state, action) => {
 export default function OrderScreen() {
   const { state } = useContext(StoreContext)
   const { userInfo } = state
+  const [clicked, setClicked] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const dateToString = new Date().toUTCString()
+
+  // const dueDate = new Date(new Date().setDate(new Date().getDate() + 30))
 
   const url = 'http://localhost:8000'
 
@@ -76,28 +82,43 @@ export default function OrderScreen() {
       })
   }
 
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
-      try {
-        dispatch({ type: 'PAY_REQUEST' })
-        const { data } = await axios.put(
-          `${url}/api/orders/${order._id}/pay`,
-          details,
-          {
-            headers: { authorization: `Bearer ${userInfo.token}` },
-          }
-        )
-        dispatch({ type: 'PAY_SUCCESS', payload: data })
-        toast.success('Order is paid')
-      } catch (err) {
-        dispatch({ type: 'PAY_FAIL', payload: getError(err) })
-        toast.error(getError(err))
-      }
-    })
-  }
+  // function onApprove(data, actions) {
+  //   return actions.order.capture().then(async function (details) {
+  //     try {
+  //       dispatch({ type: 'PAY_REQUEST' })
+  //       const { data } = await axios.put(
+  //         `${url}/api/orders/${order._id}/pay`,
+  //         details,
+  //         {
+  //           headers: { authorization: `Bearer ${userInfo.token}` },
+  //         }
+  //       )
+  //       dispatch({ type: 'PAY_SUCCESS', payload: data })
+  //       toast.success('Order is paid')
+  //     } catch (err) {
+  //       dispatch({ type: 'PAY_FAIL', payload: getError(err) })
+  //       toast.error(getError(err))
+  //     }
+  //   })
+  // }
 
-  function onError(err) {
-    toast.error(getError(err))
+  // function onError(err) {
+  //   toast.error(getError(err))
+  // }
+
+  const withdrawalHandler = () => {
+    // let timeout;
+    try {
+      setIsProcessing(true)
+      setTimeout(
+        setClicked(() => !clicked),
+        3000
+      )
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsProcessing(false)
+    }
   }
 
   useEffect(() => {
@@ -156,7 +177,7 @@ export default function OrderScreen() {
         <Col md={8}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Payment Details:</Card.Title>
+              <Card.Title className='green_1'>Payment Details:</Card.Title>
               <Card.Text>
                 <strong>Method: </strong> {order.paymentMethod}
                 <br />
@@ -169,7 +190,7 @@ export default function OrderScreen() {
               {order.isPaid ? (
                 <MessageBox variant='success'>
                   <div className='iFlex'>
-                    <p className='spacing0'>Paid</p>
+                    <p className='spacing0'>Paid on {dateToString}</p>
                     <p className='spacing0'>
                       <img
                         src='/images/checkmark.svg'
@@ -195,7 +216,7 @@ export default function OrderScreen() {
 
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Withdrawal Details</Card.Title>
+              <Card.Title className='green_1'>Withdrawal Details</Card.Title>
               <Card.Text>
                 <strong>Name: </strong> {order.bankDetails.fullName}
                 <br />
@@ -209,31 +230,51 @@ export default function OrderScreen() {
               {order.isDue ? (
                 <MessageBox variant='success'>
                   <div className='iFlex'>
-                    <p className='spacing0'>Due for withdrawal</p>
-                    <Button
-                      type='button'
-                      // onClick={placeOrderHandler}
-                      // disabled={}
-                      variant='success'
-                    >
-                      Withdraw
-                    </Button>
+                    {clicked ? (
+                      <div>
+                        <p className='spacing0'>Due for withdrawal</p>
+                        <Button
+                          type='button'
+                          onClick={withdrawalHandler}
+                          disabled={!clicked}
+                          variant='success'
+                        >
+                          {clicked ? 'Withdraw' : 'Processing'}
+                        </Button>
+                      </div>
+                    ) : (
+                      <p className='spacing0 green_1'>
+                        {isProcessing ? (
+                          <LoadingBox />
+                        ) : (
+                          <strong>
+                            Withdrawal is being processed, please check your
+                            account in One hour.
+                          </strong>
+                        )}
+                      </p>
+                    )}
                   </div>
                   {/* Due for withdrawal on {order.deliveredAt} */}
                 </MessageBox>
               ) : (
                 <MessageBox variant='danger'>
-                  <div className='iFlex'>
-                    <p className='spacing0'>Not Due for withdrawal</p>
-                    <Button
-                      type='button'
-                      // onClick={placeOrderHandler}
-                      disabled
-                      variant='danger'
-                    >
-                      Withdraw
-                    </Button>
-                  </div>
+                  {order.isPaid ? (
+                    <div className='iFlex'>
+                      <p className='spacing0'>
+                        Due on <DueDate />
+                      </p>
+                      {dateToString === <DueDate /> && (
+                        <Button type='button' disabled variant='danger'>
+                          Withdraw
+                        </Button>
+                      )}
+                    </div>
+                  ) : (
+                    <div className='iFlex'>
+                      <p className='spacing0'>Not Due for withdrawal</p>
+                    </div>
+                  )}
                 </MessageBox>
               )}
             </Card.Body>
@@ -241,23 +282,32 @@ export default function OrderScreen() {
 
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Items</Card.Title>
+              <Card.Title className='green_1'>Items</Card.Title>
               <ListGroup variant='flush'>
                 {order.orderItems.map((item) => (
                   <ListGroup.Item key={item._id}>
                     <Row className='align-items-center'>
-                      <Col md={6}>
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className='img-fluid rounded img-thumbnail'
-                        />{' '}
-                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                      </Col>
-                      <Col md={3}>
-                        <span>{item.quantity}</span>
-                      </Col>
-                      <Col md={3}>₦{item.price}</Col>
+                      <div className='space_btw'>
+                        <Col md={6}>
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className='img-fluid rounded img-thumbnail'
+                          />{' '}
+                          <Link
+                            to={`/product/${item.slug}`}
+                            className='green_1 name_bold'
+                          >
+                            {item.name}
+                          </Link>
+                        </Col>
+                        <Col md={3} className='name_bold'>
+                          <span>{item.quantity}</span>
+                        </Col>
+                        <Col md={3} className='name_bold'>
+                          ₦{item.price}
+                        </Col>
+                      </div>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -269,7 +319,7 @@ export default function OrderScreen() {
         <Col md={4}>
           <Card className='mb-3'>
             <Card.Body>
-              <Card.Title>Investment Summary</Card.Title>
+              <Card.Title className='green_1'>Investment Summary</Card.Title>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
@@ -283,25 +333,25 @@ export default function OrderScreen() {
                     <Col>₦{order.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item> */}
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
                     <Col>₦0.00</Col>
                   </Row>
-                </ListGroup.Item>
-                {/* <ListGroup.Item>
+                </ListGroup.Item> */}
+                <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
                     <Col>₦{order.taxPrice.toFixed(2)}</Col>
                   </Row>
-                </ListGroup.Item> */}
+                </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>
                       <strong>Total</strong>
                     </Col>
                     <Col>
-                      <strong>₦{order.itemsPrice.toFixed(2)}</strong>
+                      <strong>₦{order.totalPrice.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

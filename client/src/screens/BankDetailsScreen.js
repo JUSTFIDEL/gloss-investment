@@ -73,7 +73,7 @@ const BankDetailsScreen = () => {
       </Helmet>
       <CheckoutStep step1 step2 />
       <div className='container small-container'>
-        <h1 className='my-3'>Bank Details</h1>
+        <h1 className='my-3 green_1'>Bank Details</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className='mb-3' controlId='fullName'>
             <Form.Label>Full Name</Form.Label>
@@ -99,8 +99,8 @@ const BankDetailsScreen = () => {
               required
             />
             <p className='red'>
-              Fill your bank details for withdrawal, cannot be changed without
-              admin permission.
+              Fill in your bank details for withdrawal, it can't be changed
+              without admin's permission.
             </p>
           </Form.Group>
           {/* <Form.Group className='mb-3' controlId='postalCode'>

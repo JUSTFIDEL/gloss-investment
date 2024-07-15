@@ -90,7 +90,7 @@ const ProductScreen = () => {
   ) : error ? (
     <MessageBox variant='danger'>{error}</MessageBox>
   ) : (
-    <div>
+    <div className='m_top1'>
       <Row>
         <Col md={6}>
           <img className='img-large' src={product.image} alt={product.name} />
@@ -101,13 +101,16 @@ const ProductScreen = () => {
               <Helmet>
                 <title>{product.name}</title>
               </Helmet>
-              <h1>{product.name} Package</h1>
+              <h3 className='green_1'>{product.name} Package</h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating rating={product.rating} numReviews={product.numReviews} />
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>Price:</strong> ₦{product.price}
+              <strong>Amount:</strong> ₦{product.price}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>Interest:</strong> ₦{product.interest}
             </ListGroup.Item>
             <ListGroup.Item>
               <p>

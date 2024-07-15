@@ -57,7 +57,9 @@ export default function OrderHistoryScreen() {
 
       <h1>Order History</h1>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <div className='loading_cont'>
+          <LoadingBox />
+        </div>
       ) : error ? (
         <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
