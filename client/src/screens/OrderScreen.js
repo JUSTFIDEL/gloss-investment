@@ -18,7 +18,7 @@ import {
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js/dist/cjs/react-paypal-js.min'
 import Button from 'react-bootstrap/esm/Button'
-import DueDate from '../components/DueDate'
+// import DueDate from '../components/DueDate'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,6 +48,7 @@ export default function OrderScreen() {
   const [clicked, setClicked] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const dateToString = new Date().toUTCString()
+  // const dateToString = new Date()
 
   // const dueDate = new Date(new Date().setDate(new Date().getDate() + 30))
 
@@ -106,18 +107,23 @@ export default function OrderScreen() {
   //   toast.error(getError(err))
   // }
 
+  // useEffect(() => {
+  //   first
+
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
+
   const withdrawalHandler = () => {
     // let timeout;
     try {
       setIsProcessing(true)
-      setTimeout(
-        setClicked(() => !clicked),
-        3000
-      )
+      setClicked(true)
     } catch (error) {
       console.log(error)
     } finally {
-      setIsProcessing(false)
+      setTimeout(setIsProcessing(false), 3000)
     }
   }
 
@@ -181,6 +187,8 @@ export default function OrderScreen() {
               <Card.Text>
                 <strong>Method: </strong> {order.paymentMethod}
                 <br />
+                <strong>Amount: </strong>₦{order.itemsPrice.toLocaleString()}
+                <br />
                 <strong>Name: </strong> Gross Inv.
                 <br />
                 <strong>Bank: </strong> Moniepoint MFB
@@ -190,7 +198,10 @@ export default function OrderScreen() {
               {order.isPaid ? (
                 <MessageBox variant='success'>
                   <div className='iFlex'>
-                    <p className='spacing0'>Paid on {dateToString}</p>
+                    <p className='spacing0'>
+                      <strong>Paid on {order.paidAt}</strong>
+                    </p>
+                    {/* <p className='spacing0'>Paid on {dateToString}</p> */}
                     <p className='spacing0'>
                       <img
                         src='/images/checkmark.svg'
@@ -211,6 +222,27 @@ export default function OrderScreen() {
                   </div>
                 </MessageBox>
               )}
+              <Card.Text>
+                <div className='iFlex'>
+                  <Link
+                    to='https://t.me/+lmKURZnL3L0zZDlk'
+                    className='green_1 name_bold'
+                  >
+                    <strong>Click to submit proof after payment ➡</strong>
+                  </Link>
+
+                  <Button type='button' variant='success'>
+                    <Link
+                      to='https://t.me/+lmKURZnL3L0zZDlk'
+                      className='white_1'
+                      target='_blank'
+                    >
+                      Send Proof
+                    </Link>
+                  </Button>
+                  {/* )} */}
+                </div>
+              </Card.Text>
             </Card.Body>
           </Card>
 
@@ -224,22 +256,87 @@ export default function OrderScreen() {
                 <br />
                 <strong>Account Number: </strong> {order.bankDetails.accountNum}
               </Card.Text>
-              {/* <div className='mb1'>
-                    
-                  </div> */}
+
+              {/* Due date box */}
+              {order.isDue ? (
+                <MessageBox variant='success'>
+                  <div>
+                    {order.isPaid && (
+                      <div className='iFlex'>
+                        <p className='spacing0'>
+                          <strong>
+                            Payment will be automatically processed on{' '}
+                            {order.dueAt}
+                          </strong>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </MessageBox>
+              ) : (
+                // <MessageBox variant='success'>
+                //   <div>
+                //     {order.isPaid && (
+                //       <div className='iFlex'>
+                //         <p className='spacing0'>
+                //           <strong>Due on {order.dueAt}</strong>
+                //         </p>
+
+                //         {'Sat, 17 Aug 2024 19:34:02 GMT' === order.dueAt && (
+                //           <Button
+                //             type='button'
+                //             onClick={withdrawalHandler}
+                //             disabled={clicked}
+                //             variant='success'
+                //           >
+                //             {!clicked ? (
+                //               'Withdraw'
+                //             ) : isProcessing ? (
+                //               <LoadingBox />
+                //             ) : (
+                //               'Submitted'
+                //             )}
+                //           </Button>
+                //         )}
+                //       </div>
+                //     )}
+                //   </div>
+                // </MessageBox>
+                <MessageBox variant='danger'>
+                  <div className='iFlex'>
+                    <p className='spacing0'>Not Due</p>
+                  </div>
+                </MessageBox>
+              )}
+            </Card.Body>
+          </Card>
+
+          {/* <Card className='mb-3'>
+            <Card.Body>
+              <Card.Title className='green_1'>Withdrawal Details</Card.Title>
+              <Card.Text>
+                <strong>Name: </strong> {order.bankDetails.fullName}
+                <br />
+                <strong>Bank: </strong> {order.bankDetails.bank},
+                <br />
+                <strong>Account Number: </strong> {order.bankDetails.accountNum}
+              </Card.Text>
+             
+          
               {order.isDue ? (
                 <MessageBox variant='success'>
                   <div className='iFlex'>
-                    {clicked ? (
+                  {order.isPaid ? (
                       <div>
-                        <p className='spacing0'>Due for withdrawal</p>
+                        <p className='spacing0'>Due</p>
                         <Button
                           type='button'
                           onClick={withdrawalHandler}
-                          disabled={!clicked}
+                          // disabled={!clicked}
                           variant='success'
                         >
-                          {clicked ? 'Withdraw' : 'Processing'}
+                     
+                          {!clicked ? 'Withdraw' : 'Processing' }
                         </Button>
                       </div>
                     ) : (
@@ -255,7 +352,7 @@ export default function OrderScreen() {
                       </p>
                     )}
                   </div>
-                  {/* Due for withdrawal on {order.deliveredAt} */}
+              
                 </MessageBox>
               ) : (
                 <MessageBox variant='danger'>
@@ -264,11 +361,11 @@ export default function OrderScreen() {
                       <p className='spacing0'>
                         Due on <DueDate />
                       </p>
-                      {dateToString === <DueDate /> && (
+                    
                         <Button type='button' disabled variant='danger'>
                           Withdraw
                         </Button>
-                      )}
+    
                     </div>
                   ) : (
                     <div className='iFlex'>
@@ -278,7 +375,7 @@ export default function OrderScreen() {
                 </MessageBox>
               )}
             </Card.Body>
-          </Card>
+          </Card> */}
 
           <Card className='mb-3'>
             <Card.Body>
@@ -305,7 +402,7 @@ export default function OrderScreen() {
                           <span>{item.quantity}</span>
                         </Col>
                         <Col md={3} className='name_bold'>
-                          ₦{item.price}
+                          ₦{item.price.toLocaleString()}
                         </Col>
                       </div>
                     </Row>
@@ -324,7 +421,7 @@ export default function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Amount</Col>
-                    <Col>₦{order.itemsPrice.toFixed(2)}</Col>
+                    <Col>₦{order.itemsPrice.toLocaleString()}</Col>
                   </Row>
                 </ListGroup.Item>
                 {/* <ListGroup.Item>
@@ -341,8 +438,8 @@ export default function OrderScreen() {
                 </ListGroup.Item> */}
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
-                    <Col>₦{order.taxPrice.toFixed(2)}</Col>
+                    <Col>Interest</Col>
+                    <Col>₦{order.taxPrice.toLocaleString()}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -351,7 +448,7 @@ export default function OrderScreen() {
                       <strong>Total</strong>
                     </Col>
                     <Col>
-                      <strong>₦{order.totalPrice.toFixed(2)}</strong>
+                      <strong>₦{order.totalPrice.toLocaleString()}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

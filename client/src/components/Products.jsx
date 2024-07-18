@@ -47,7 +47,8 @@ const Products = ({ product }) => {
           numReviews={product.numReviews}
           description={product.description}
         />
-        <p className='p-price'>₦{product.price}</p>
+        <p className='p-price'>₦{product.price.toLocaleString()}</p>
+        {/* <p className='p-price'>₦{product.price}.toLocaleString()</p> */}
         {product.countInStock === 0 ? (
           <button className='pro-but-0' disabled>
             Out of Stock

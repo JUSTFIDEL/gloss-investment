@@ -1,16 +1,29 @@
-import React from 'react'
-// import moment from 'moment'
+// import React, { useEffect, useState } from 'react'
 
-const DueDate = () => {
-  const dueDate = new Date(new Date().setDate(new Date().getDate() + 30))
-  // const dueDate = moment().format("MM/DD/YYYY")
+// const DueDate = () => {
+//   // const dueDate = new Date(new Date().setDate(new Date().getDate() + 30))
+//   // const dueDate = moment().format("MM/DD/YYYY")
 
-  return (
-    <span>
-      <strong>{dueDate.toUTCString()}</strong>
-      {/* <strong>{dueDate.toLocaleDateString()}</strong> */}
-    </span>
-  )
-}
+//   const futureDate = new Date(new Date().setDate(new Date().getDate() + 30))
+//   const [dueDate, setDueDate] = useState(localStorage.getItem(futureDate) || [])
 
-export default DueDate
+//   useEffect(() => {
+//     const dueDate = JSON.parse(
+//       localStorage.setItem('futureDate', JSON.stringify(futureDate))
+//     )
+
+//     if (dueDate) {
+//       setDueDate(dueDate)
+//     }
+//   }, [])
+
+//   return (
+//     <span>
+//       <strong>{dueDate}</strong>
+//       {/* <strong>{dueDate.toUTCString()}</strong> */}
+//       {/* <strong>{dueDate.toLocaleDateString()}</strong> */}
+//     </span>
+//   )
+// }
+
+// export default DueDate

@@ -60,6 +60,8 @@ const ProductScreen = () => {
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart } = state
 
+  // const productPrice = product.price.toLocaleString()
+
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1
@@ -107,10 +109,10 @@ const ProductScreen = () => {
               <Rating rating={product.rating} numReviews={product.numReviews} />
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>Amount:</strong> ₦{product.price}
+              <strong>Amount:</strong> ₦{product.price.toLocaleString()}
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>Interest:</strong> ₦{product.interest}
+              <strong>Interest:</strong> ₦{product.interest.toLocaleString()}
             </ListGroup.Item>
             <ListGroup.Item>
               <p>
@@ -128,7 +130,7 @@ const ProductScreen = () => {
                     <Col>
                       <strong>Price:</strong>
                     </Col>
-                    <Col>₦{product.price}</Col>
+                    <Col>₦{product.price.toLocaleString()}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>

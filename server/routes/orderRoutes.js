@@ -17,6 +17,8 @@ orderRouter.post(
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
+      paidAt: req.body.paidAt,
+      dueAt: req.body.dueAt,
       user: req.user._id,
     })
 
@@ -55,6 +57,7 @@ orderRouter.put(
     if (order) {
       order.isPaid = true
       order.paidAt = Date.now()
+      order.dueAt = new Date(new Date().setDate(new Date().getDate() + 30))
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,

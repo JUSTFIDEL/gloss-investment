@@ -51,6 +51,11 @@ h1 {
   font-weight: bold;
 }
 
+.white_1 {
+  color: white !important;
+  font-weight: bold;
+}
+
 /* .green_1:hover {
   text-decoration: underline;
 } */

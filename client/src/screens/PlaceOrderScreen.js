@@ -49,6 +49,11 @@ export default function PlaceOrderScreen() {
   //   console.log(data.rate)
   //   return data.rate
   // }
+  cart.dueAt = new Date(
+    new Date().setDate(new Date().getDate() + 30)
+  ).toUTCString()
+  cart.paidAt = new Date().toUTCString()
+  // cart.paidAt = new Date().toLocaleString()
 
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10)
   const percentage = cart.itemsPrice > 200000 ? 0.4 : 0.3
@@ -74,6 +79,8 @@ export default function PlaceOrderScreen() {
           shippingPrice: cart.shippingPrice,
           taxPrice: cart.taxPrice,
           totalPrice: cart.totalPrice,
+          paidAt: cart.paidAt,
+          dueAt: cart.dueAt,
         },
         {
           headers: {
@@ -163,7 +170,7 @@ export default function PlaceOrderScreen() {
                           <span>{item.quantity}</span>
                         </Col>
                         <Col md={3} className='name_bold'>
-                          ₦{item.price}
+                          ₦{item.price.toLocaleString()}
                         </Col>
                       </div>
                     </Row>
@@ -187,7 +194,8 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Amount:</Col>
-                    <Col>₦{cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>₦{cart.itemsPrice.toLocaleString()}</Col>
+                    {/* <Col>₦{cart.itemsPrice.toFixed(2)}</Col> */}
                   </Row>
                 </ListGroup.Item>
 
@@ -210,7 +218,10 @@ export default function PlaceOrderScreen() {
                   <Row>
                     <Col>Total Payment:</Col>
                     <Col>
-                      <strong>₦{cart.itemsPrice.toFixed(2)}</strong>
+                      <strong>
+                        ₦{cart.itemsPrice.toLocaleString()}
+                        {/* ₦{cart.itemsPrice.toFixed(2)} */}
+                      </strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

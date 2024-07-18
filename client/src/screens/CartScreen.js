@@ -104,7 +104,7 @@ function CartScreen() {
                       </Button>
                     </Col> */}
                     <Col md={3} className='center'>
-                      ₦{item.price}
+                      ₦{item.price.toLocaleString()}
                     </Col>
                     <Col md={2} className='center'>
                       <Button
@@ -128,7 +128,9 @@ function CartScreen() {
                   <h4>
                     Amount ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
                     Package): <br />₦
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    {cartItems
+                      .reduce((a, c) => a + c.price * c.quantity, 0)
+                      .toLocaleString()}
                   </h4>
                 </ListGroup.Item>
                 <ListGroup.Item>
