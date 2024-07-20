@@ -302,10 +302,19 @@ export default function OrderScreen() {
                 //     )}
                 //   </div>
                 // </MessageBox>
+
                 <MessageBox variant='danger'>
-                  <div className='iFlex'>
-                    <p className='spacing0'>Not Due</p>
-                  </div>
+                  {order.isPaid ? (
+                    <div className='iFlex'>
+                      <p className='spacing0'>
+                        <strong>Due on {order.dueAt}</strong>
+                      </p>
+                    </div>
+                  ) : (
+                    <div className='iFlex'>
+                      <p className='spacing0'>Not Due</p>
+                    </div>
+                  )}
                 </MessageBox>
               )}
             </Card.Body>
