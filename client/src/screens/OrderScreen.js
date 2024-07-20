@@ -52,7 +52,7 @@ export default function OrderScreen() {
 
   // const dueDate = new Date(new Date().setDate(new Date().getDate() + 30))
 
-  const url = 'https://gloss-api.vercel.app/'
+  const url = 'https://gloss-api.vercel.app'
 
   const params = useParams()
   const { id: orderId } = params

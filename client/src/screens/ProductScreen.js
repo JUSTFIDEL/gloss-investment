@@ -47,7 +47,9 @@ const ProductScreen = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`)
+        const result = await axios.get(
+          `https://gloss-api.vercel.app/api/products/slug/${slug}`
+        )
         // const result = await authFetch(url)
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
       } catch (error) {
@@ -65,7 +67,7 @@ const ProductScreen = () => {
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id)
     const quantity = existItem ? existItem.quantity + 1 : 1
-    const url = `/api/products/${product._id}`
+    const url = `https://gloss-api.vercel.app/api/products/${product._id}`
     const { data } = await axios.get(url)
     // const { data } = await authFetch(url)
 

@@ -22,14 +22,13 @@ const reducer = (state, action) => {
 }
 
 export default function ProfileScreen() {
-  const url = 'https://gloss-api.vercel.app/'
+  const url = 'https://gloss-api.vercel.app'
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { userInfo } = state
   const [name, setName] = useState(userInfo.name)
   const [email, setEmail] = useState(userInfo.email)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   })
