@@ -87,6 +87,7 @@ export default function SearchScreen() {
   const order = sp.get('order') || 'newest'
   const page = sp.get('page') || 1
 
+  // const url = 'https://gloss-api.vercel.app/'
   // const url = 'https://justfidel-ecomm-api.vercel.app'
   // const url = 'http://localhost:8000'
 

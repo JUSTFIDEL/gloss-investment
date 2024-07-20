@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const authFetch = axios.create({
   // baseURL: 'https://justfidel-ecomm-api.vercel.app',
-  baseURL: 'http://localhost:8000',
+  baseURL: 'https://gloss-api.vercel.app/',
   headers: {
     Accept: 'application/json',
   },

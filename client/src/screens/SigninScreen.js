@@ -16,7 +16,7 @@ function SigninScreen() {
   const redirectInUrl = new URLSearchParams(search).get('redirect')
   const redirect = redirectInUrl ? redirectInUrl : '/'
 
-  const url = 'http://localhost:8000/api/users/signin'
+  const url = 'https://gloss-api.vercel.app/api/users/signin'
   const { state, dispatch } = useContext(StoreContext)
   const { userInfo } = state
 

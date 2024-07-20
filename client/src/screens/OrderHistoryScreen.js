@@ -27,7 +27,7 @@ export default function OrderHistoryScreen() {
   const { userInfo } = state
   const navigate = useNavigate()
 
-  const url = 'http://localhost:8000'
+  const url = 'https://gloss-api.vercel.app/'
 
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,

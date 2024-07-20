@@ -22,7 +22,7 @@ const reducer = (state, action) => {
 }
 
 export default function ProfileScreen() {
-  const url = 'http://localhost:8000'
+  const url = 'https://gloss-api.vercel.app/'
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { userInfo } = state
   const [name, setName] = useState(userInfo.name)
