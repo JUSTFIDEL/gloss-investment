@@ -24,6 +24,7 @@ function SignupScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [show, setShow] = useState(false)
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -60,11 +61,12 @@ function SignupScreen() {
 
       <Form onSubmit={submitHandler}>
         <Form.Group className='mb-3' controlId='name'>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
             type='name'
             required
             onChange={(e) => setName(e.target.value)}
+            placeholder='Enter your username'
           />
         </Form.Group>
 
@@ -74,25 +76,46 @@ function SignupScreen() {
             type='email'
             required
             onChange={(e) => setEmail(e.target.value)}
+            placeholder='Enter your email'
           />
         </Form.Group>
 
         <Form.Group className='mb-3' controlId='password'>
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className='spacing0 spaceFlex p_rel'>
+            <Form.Control
+              type={show ? 'text' : 'password'}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Enter your password'
+            />
+            <div
+              className='spacing0 x30 p_abs dis_flex'
+              onClick={() => setShow(!show)}
+            >
+              {show && <i class='fa-solid fa-eye'></i>}
+              {!show && <i class='fa-solid fa-eye-slash'></i>}
+            </div>
+          </div>
         </Form.Group>
 
         <Form.Group className='mb-3' controlId='confirmPassword'>
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type='password'
-            required
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <div className='spacing0 spaceFlex p_rel'>
+            <Form.Control
+              type={show ? 'text' : 'password'}
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder='Confirm your password'
+            />
+            <div
+              className='spacing0 x30 p_abs dis_flex'
+              onClick={() => setShow(!show)}
+            >
+              {show && <i class='fa-solid fa-eye'></i>}
+              {!show && <i class='fa-solid fa-eye-slash'></i>}
+            </div>
+          </div>
         </Form.Group>
 
         <div className='mb-3'>
@@ -103,7 +126,9 @@ function SignupScreen() {
 
         <div className='mb-3'>
           Already have an account?{' '}
-          <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
+          <Link to={`/signin?redirect=${redirect}`} className='green1'>
+            Sign In
+          </Link>
         </div>
       </Form>
     </Container>

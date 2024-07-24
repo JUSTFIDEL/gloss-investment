@@ -29,6 +29,7 @@ export default function ProfileScreen() {
   const [email, setEmail] = useState(userInfo.email)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [show, setShow] = useState(false)
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   })
@@ -88,17 +89,37 @@ export default function ProfileScreen() {
         </Form.Group>
         <Form.Group className='mb-3' controlId='name'>
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className='spacing0 spaceFlex p_rel'>
+            <Form.Control
+              type={show ? 'text' : 'password'}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Enter your new password'
+            />
+            <div
+              className='spacing0 x30 p_abs dis_flex'
+              onClick={() => setShow(!show)}
+            >
+              {show && <i class='fa-solid fa-eye'></i>}
+              {!show && <i class='fa-solid fa-eye-slash'></i>}
+            </div>
+          </div>
         </Form.Group>
         <Form.Group className='mb-3' controlId='name'>
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type='password'
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <div className='spacing0 spaceFlex p_rel'>
+            <Form.Control
+              type={show ? 'text' : 'password'}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder='Confirm your new password'
+            />
+            <div
+              className='spacing0 x30 p_abs dis_flex'
+              onClick={() => setShow(!show)}
+            >
+              {show && <i class='fa-solid fa-eye'></i>}
+              {!show && <i class='fa-solid fa-eye-slash'></i>}
+            </div>
+          </div>
         </Form.Group>
         <div className='mb-3'>
           <Button type='submit'>Update</Button>

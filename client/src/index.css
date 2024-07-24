@@ -543,6 +543,20 @@ footer {
   /* max-width: 100%; */
 }
 
+.p_rel {
+  position: relative;
+}
+
+.p_abs {
+  position: absolute;
+  right: 0;
+}
+
+.x30 {
+  width: 60px;
+  height: 30px;
+}
+
 .mt1 {
   margin-top: 1rem;
 }
@@ -599,6 +613,18 @@ footer {
 .checkout-steps > div.active {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
+}
+
+.bg-red {
+  background: red;
+}
+
+.spaceFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .iFlex {
@@ -801,6 +827,16 @@ element.style {
 
   .dis_none {
     display: block;
+  }
+
+  .dis0 {
+    display: none;
+  }
+
+  .dis_flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .navbar-brand {

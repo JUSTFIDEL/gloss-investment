@@ -22,6 +22,13 @@ function SigninScreen() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [show, setShow] = useState(false)
+
+  // const showPass = (e) => {
+  //   e.preventDefault()
+  //   // setShow(!show)
+  //   setShow(() => !show)
+  // }
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -56,15 +63,26 @@ function SigninScreen() {
             type='email'
             required
             onChange={(e) => setEmail(e.target.value)}
+            placeholder='Enter your email'
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='password'>
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className='spacing0 spaceFlex p_rel'>
+            <Form.Control
+              type={show ? 'text' : 'password'}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Enter your password'
+            />
+            <div
+              className='spacing0 x30 p_abs dis_flex'
+              onClick={() => setShow(!show)}
+            >
+              {show && <i class='fa-solid fa-eye'></i>}
+              {!show && <i class='fa-solid fa-eye-slash'></i>}
+            </div>
+          </div>
         </Form.Group>
         <div className='mb-3'>
           <Button type='submit' variant='success'>
