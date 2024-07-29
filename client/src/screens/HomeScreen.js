@@ -94,7 +94,7 @@ const HomeScreen = () => {
                 a prosperous future for all members.
               </p>
             </div>
-            <div className='hero_img'>
+            <div className='hero_img p_flowRight'>
               <img
                 src='/images/animated1.gif'
                 alt='hero video'

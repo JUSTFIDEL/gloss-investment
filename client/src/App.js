@@ -30,6 +30,7 @@ import AdminRoute from './components/AdminRoute'
 import AdminProductScreen from './screens/AdminProductScreen'
 import AdminOrdersScreen from './screens/AdminOrderScreen'
 import UsersScreen from './screens/UsersScreen'
+import ReferralScreen from './screens/ReferralScreen'
 // import ShippingAddressScreen from './screens/BankDetailsScreen'
 // import SearchBox from './components/SearchBox'
 // import Button from 'react-bootstrap/Button'
@@ -116,6 +117,12 @@ function App() {
                   <LinkContainer to='/orderhistory'>
                     <NavDropdown.Item className='sm-font'>
                       Order History
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to='/referrals'>
+                    <NavDropdown.Item className='sm-font'>
+                      Referrals
                     </NavDropdown.Item>
                   </LinkContainer>
 
@@ -405,12 +412,20 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path='/referrals'
+              element={
+                <ProtectedRoute>
+                  <ReferralScreen />
+                </ProtectedRoute>
+              }
+            />
             <Route path='/search' element={<SearchScreen />} />
           </Routes>
         </main>
 
         <footer>
-          <div>{`All rights reserved - Gloss ©${new Date().getFullYear()}`}</div>
+          <div className='mt11 mt10'>{`All rights reserved - Gross Inv. ©${new Date().getFullYear()}`}</div>
         </footer>
       </div>
     </BrowserRouter>

@@ -22,14 +22,35 @@ function SignupScreen() {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
+  // const [validated, setValidated] = useState(false)
 
   const submitHandler = async (e) => {
     e.preventDefault()
 
-    if (password !== confirmPassword) {
+    if (!name || name.length < 3) {
+      toast.error('Name must be at least 3 letters')
+      return
+    } else if (!email) {
+      toast.error('Enter email')
+      return
+    } else if (!phone || phone.length !== 11) {
+      toast.error('Enter 11 digits')
+      return
+    } else if (!password || password.length <= 5 || password.length > 20) {
+      toast.error('Password must be between 6 - 20 characters')
+      return
+    } else if (
+      !confirmPassword ||
+      confirmPassword.length <= 5 ||
+      confirmPassword.length > 20
+    ) {
+      toast.error('Confirm password must be between 6 -20 characters')
+      return
+    } else if (password !== confirmPassword) {
       toast.error('Passwords do not match')
       return
     } else {
@@ -37,7 +58,7 @@ function SignupScreen() {
     }
 
     try {
-      const { data } = await axios.post(url, { name, email, password })
+      const { data } = await axios.post(url, { name, email, phone, password })
       dispatch({ type: 'USER_SIGNIN', payload: data })
       localStorage.setItem('userInfo', JSON.stringify(data))
       navigate(redirect || '/')
@@ -61,12 +82,12 @@ function SignupScreen() {
 
       <Form onSubmit={submitHandler}>
         <Form.Group className='mb-3' controlId='name'>
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control
             type='name'
             required
             onChange={(e) => setName(e.target.value)}
-            placeholder='Enter your username'
+            placeholder='Enter your name'
           />
         </Form.Group>
 
@@ -77,6 +98,17 @@ function SignupScreen() {
             required
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Enter your email'
+          />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='email'>
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type='tel'
+            // pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+            required
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder='080XXXXXXXX'
           />
         </Form.Group>
 
