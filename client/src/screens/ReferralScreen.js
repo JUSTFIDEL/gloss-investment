@@ -57,7 +57,7 @@ const ReferralScreen = () => {
       </Helmet>
 
       <p>
-        Referral Link: {refLink}/ref?{userInfo.tel}
+        Referral Link: {refLink}/ref?{userInfo.phone}
       </p>
       <h1>Referrals</h1>
 

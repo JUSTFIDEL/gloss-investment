@@ -13,6 +13,7 @@ const data = {
       email: 'gross-investment@consultant.com',
       phone: '08021146164',
       password: bcrypt.hashSync('Pass@1234$'),
+      referredBy: 'Admin',
       isAdmin: true,
     },
     {
@@ -20,6 +21,7 @@ const data = {
       email: 'fidenki1429@gmail.com',
       phone: '08103884330',
       password: bcrypt.hashSync('Pass@1234$'),
+      referredBy: 'Admin',
       isAdmin: false,
     },
   ],

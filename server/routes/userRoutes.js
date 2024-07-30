@@ -18,6 +18,7 @@ userRouter.post(
           name: user.name,
           email: user.email,
           phone: user.phone,
+          referredBy: user.referredBy,
           isAdmin: user.isAdmin,
           token: generateToken(user),
         })
@@ -35,6 +36,7 @@ userRouter.post(
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
+      referredBy: req.body.referredBy,
       password: bcrypt.hashSync(req.body.password),
     })
     const user = await newUser.save()
@@ -43,6 +45,7 @@ userRouter.post(
       name: user.name,
       email: user.email,
       phone: user.phone,
+      referredBy: user.referredBy,
       isAdmin: user.isAdmin,
       token: generateToken(user),
     })
