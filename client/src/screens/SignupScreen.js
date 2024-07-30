@@ -102,7 +102,7 @@ function SignupScreen() {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='email'>
+        <Form.Group className='mb-3' controlId='phone'>
           <Form.Label>Phone Number</Form.Label>
           <Form.Control
             type='tel'
@@ -113,12 +113,12 @@ function SignupScreen() {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='email'>
+        <Form.Group className='mb-3' controlId='referredBy'>
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
             onChange={(e) => setReferrer(e.target.value)}
-            placeholder='080XXXXXXXX'
+            placeholder='Enter referrer phone number'
           />
         </Form.Group>
 
