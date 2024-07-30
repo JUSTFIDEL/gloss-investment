@@ -24,6 +24,7 @@ function SignupScreen() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  const [referrer, setReferrer] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
   // const [validated, setValidated] = useState(false)
@@ -108,6 +109,15 @@ function SignupScreen() {
             // pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
             required
             onChange={(e) => setPhone(e.target.value)}
+            placeholder='080XXXXXXXX'
+          />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='email'>
+          <Form.Label>Referred By</Form.Label>
+          <Form.Control
+            type='text'
+            onChange={(e) => setReferrer(e.target.value)}
             placeholder='080XXXXXXXX'
           />
         </Form.Group>
