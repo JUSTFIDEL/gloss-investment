@@ -31,7 +31,7 @@ function SignupScreen() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const [referrer, setReferrer] = useState('')
+  const [referredBy, setReferredBy] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
   // const [validated, setValidated] = useState(false)
@@ -66,7 +66,13 @@ function SignupScreen() {
     }
 
     try {
-      const { data } = await axios.post(url, { name, email, phone, password })
+      const { data } = await axios.post(url, {
+        name,
+        email,
+        phone,
+        referredBy,
+        password,
+      })
       dispatch({ type: 'USER_SIGNIN', payload: data })
       localStorage.setItem('userInfo', JSON.stringify(data))
       navigate(redirect || '/')
@@ -125,7 +131,7 @@ function SignupScreen() {
           <Form.Control
             type='text'
             value={ref1}
-            onChange={(e) => setReferrer(e.target.value)}
+            onChange={(e) => setReferredBy(e.target.value)}
             placeholder='Enter referrer phone number'
           />
         </Form.Group>
