@@ -64,7 +64,7 @@ export default function OrderHistoryScreen() {
         <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
         <div>
-          <div className='lg_scr'>
+          <div className='lg_scr '>
             <table className='table'>
               <thead>
                 <tr>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer } from 'react'
 import { Helmet } from 'react-helmet-async'
 import LoadingBox from '../components/LoadingBox'
 import { StoreContext } from '../contexts/StoreContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { getError } from '../utils'
 import MessageBox from '../components/MessageBox'
@@ -28,7 +28,8 @@ const ReferralScreen = () => {
   const navigate = useNavigate()
 
   const url = 'https://gloss-api.vercel.app'
-  const refLink = 'https://gross-peach.vercel.app'
+  const refLink = `http://localhost:3000/signup?ref1=`
+  // const refLink = 'https://gross-peach.vercel.app'
 
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -56,10 +57,14 @@ const ReferralScreen = () => {
         <title>Referrals</title>
       </Helmet>
 
-      <p>
-        Referral Link: {refLink}/ref?{userInfo.phone}
-      </p>
       <h1>Referrals</h1>
+      <Link to={refLink}>
+        <p>
+          <strong>My Referral Link:</strong> <br />
+          {refLink}
+          {userInfo.phone}
+        </p>
+      </Link>
 
       {loading ? (
         <div className='loading_cont'>

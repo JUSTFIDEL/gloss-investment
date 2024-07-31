@@ -1,4 +1,9 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -15,6 +20,8 @@ function SignupScreen() {
   const { search } = useLocation()
   const redirectInUrl = new URLSearchParams(search).get('redirect')
   const redirect = redirectInUrl ? redirectInUrl : '/'
+  const [searchParams] = useSearchParams()
+  const ref1 = searchParams.get('ref1')
 
   const url = 'https://gloss-api.vercel.app/api/users/signup'
   const { state, dispatch } = useContext(StoreContext)
@@ -117,6 +124,7 @@ function SignupScreen() {
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
+            value={ref1}
             onChange={(e) => setReferrer(e.target.value)}
             placeholder='Enter referrer phone number'
           />

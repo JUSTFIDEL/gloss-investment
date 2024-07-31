@@ -188,6 +188,10 @@ header {
   font-weight: bold;
 }
 
+.th_lg {
+  text-align: center;
+}
+
 .logo_cont {
   display: flex;
   align-items: center;
