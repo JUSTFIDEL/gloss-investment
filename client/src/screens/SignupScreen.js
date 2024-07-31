@@ -31,9 +31,7 @@ function SignupScreen() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const [referredBy, setReferredBy] = useState(
-    localStorage.getItem('ref1') || ''
-  )
+  const [referredBy, setReferredBy] = useState()
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
   // const [validated, setValidated] = useState(false)
