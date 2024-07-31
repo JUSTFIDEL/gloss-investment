@@ -9,7 +9,7 @@
 
 //   useEffect(() => {
 //     const dueDate = JSON.parse(
-//       localStorage.setItem('futureDate', JSON.stringify(futureDate))
+//       .setItem('futureDate', JSON.stringify(futureDate))
 //     )
 
 //     if (dueDate) {

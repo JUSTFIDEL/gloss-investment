@@ -31,7 +31,9 @@ function SignupScreen() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const [referredBy, setReferredBy] = useState('')
+  const [referredBy, setReferredBy] = useState(
+    localStorage.getItem('ref1') || ''
+  )
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
   // const [validated, setValidated] = useState(false)
@@ -46,7 +48,7 @@ function SignupScreen() {
       toast.error('Enter email')
       return
     } else if (!phone || phone.length !== 11) {
-      toast.error('Enter 11 digits')
+      toast.error('Enter 11 digits phone number')
       return
     } else if (!password || password.length <= 5 || password.length > 20) {
       toast.error('Password must be between 6 - 20 characters')
@@ -80,6 +82,11 @@ function SignupScreen() {
       toast.error(getError(err))
     }
   }
+  useEffect(() => {
+    if (ref1) {
+      localStorage.setItem('ref1', ref1)
+    }
+  }, [ref1])
 
   useEffect(() => {
     if (userInfo) {
@@ -130,7 +137,7 @@ function SignupScreen() {
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
-            value={ref1}
+            defaultValue={ref1}
             onChange={(e) => setReferredBy(e.target.value)}
             placeholder='Enter referrer phone number'
           />
