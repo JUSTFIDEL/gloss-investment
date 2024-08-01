@@ -34,7 +34,8 @@ function SignupScreen() {
   const [referredBy, setReferredBy] = useState()
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
-  const [ref11, setRef11] = useState(localStorage.getItem('ref11') || ref1)
+  const [refId, setRefId] = useState()
+  // const [ref11, setRef11] = useState(localStorage.getItem('ref11') || ref1)
   // const [validated, setValidated] = useState(false)
 
   const submitHandler = async (e) => {
@@ -84,13 +85,13 @@ function SignupScreen() {
       toast.error(getError(err))
     }
   }
-  useEffect(() => {
-    if (ref1) {
-      localStorage.setItem('ref11', ref11)
-    }
-  }, [ref1, ref11])
 
   useEffect(() => {
+    if (localStorage.getItem('ref_id')) {
+      const phoneref = localStorage.getItem('ref_id')
+      setRefId(phoneref)
+    }
+
     if (userInfo) {
       navigate(redirect)
     }
@@ -139,7 +140,7 @@ function SignupScreen() {
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
-            value={ref11}
+            defaultValue={refId}
             onChange={(e) => setReferredBy(e.target.value)}
             placeholder='Enter referrer phone number'
           />
