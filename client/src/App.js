@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  useSearchParams,
-} from 'react-router-dom'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // import Container from 'react-bootstrap/Container'
@@ -45,9 +39,6 @@ function App() {
   const { state, dispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
 
-  const [searchParams] = useSearchParams()
-  const ref1 = searchParams.get('ref1')
-
   const signoutHandler = () => {
     dispatch({ type: 'USER_SIGNOUT' })
     localStorage.removeItem('userInfo')
@@ -60,10 +51,6 @@ function App() {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    if (ref1) {
-      localStorage.setItem('ref_id', ref1)
-    }
-
     const fetchCategories = async () => {
       try {
         const { data } = await authFetch(`/api/products/categories`)
@@ -73,7 +60,7 @@ function App() {
       }
     }
     fetchCategories()
-  }, [ref1])
+  }, [])
 
   return (
     <BrowserRouter>

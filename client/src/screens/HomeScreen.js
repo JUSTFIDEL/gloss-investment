@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 // import authFetch from '../axios/custom'
 import Products from '../components/Products'
 import { Helmet } from 'react-helmet-async'
@@ -6,7 +12,7 @@ import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 import { getError } from '../utils'
 import Button from 'react-bootstrap/esm/Button'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { StoreContext } from '../contexts/StoreContext'
 // import Row from 'react-bootstrap/Row'
@@ -27,6 +33,10 @@ const reducer = (state, action) => {
 }
 
 const HomeScreen = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [query, setQuery] = useState(searchParams.get('query'))
+  // const phoneRef = useRef()
+
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
 
@@ -38,6 +48,11 @@ const HomeScreen = () => {
   })
 
   useEffect(() => {
+    console.log(query)
+    if (query) {
+      localStorage.setItem('query', query)
+    }
+
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
@@ -52,7 +67,7 @@ const HomeScreen = () => {
       // setProducts(data)
     }
     fetchData()
-  }, [])
+  }, [query])
 
   return (
     <div className='sm_container'>

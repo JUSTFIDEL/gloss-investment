@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Helmet } from 'react-helmet-async'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { StoreContext } from '../contexts/StoreContext'
 import { toast } from 'react-toastify'
 import { getError } from '../utils'
@@ -20,8 +20,10 @@ function SignupScreen() {
   const { search } = useLocation()
   const redirectInUrl = new URLSearchParams(search).get('redirect')
   const redirect = redirectInUrl ? redirectInUrl : '/'
-  const [searchParams] = useSearchParams()
-  const ref1 = searchParams.get('ref1')
+  // const [searchParams, setSearchParams] = useSearchParams()
+  // const [query, setQuery] = useState(searchParams.get('query_ref'))
+  const queryRef = useRef()
+  const [refId, setRefId] = useState()
 
   const url = 'https://gloss-api.vercel.app/api/users/signup'
   const { state, dispatch } = useContext(StoreContext)
@@ -34,8 +36,7 @@ function SignupScreen() {
   const [referredBy, setReferredBy] = useState()
   const [confirmPassword, setConfirmPassword] = useState('')
   const [show, setShow] = useState(false)
-  const [refId, setRefId] = useState()
-  // const [ref11, setRef11] = useState(localStorage.getItem('ref11') || ref1)
+
   // const [validated, setValidated] = useState(false)
 
   const submitHandler = async (e) => {
@@ -49,9 +50,6 @@ function SignupScreen() {
       return
     } else if (!phone || phone.length !== 11) {
       toast.error('Enter 11 digits phone number')
-      return
-    } else if (referredBy.length !== 11) {
-      toast.error('Must be 11 digits')
       return
     } else if (!password || password.length <= 5 || password.length > 20) {
       toast.error('Password must be between 6 - 20 characters')
@@ -87,9 +85,9 @@ function SignupScreen() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('ref_id')) {
-      const phoneref = localStorage.getItem('ref_id')
-      setRefId(phoneref)
+    if (localStorage.getItem('query')) {
+      const query = localStorage.getItem('query')
+      setRefId(query)
     }
 
     if (userInfo) {
@@ -140,7 +138,8 @@ function SignupScreen() {
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
-            defaultValue={refId}
+            ref={queryRef}
+            value={refId}
             onChange={(e) => setReferredBy(e.target.value)}
             placeholder='Enter referrer phone number'
           />
