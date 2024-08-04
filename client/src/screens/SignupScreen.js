@@ -39,6 +39,15 @@ function SignupScreen() {
 
   // const [validated, setValidated] = useState(false)
 
+  const checkLs = (e) => {
+    if (localStorage.getItem('query')) {
+      const query = localStorage.getItem('query')
+      setRefId(query)
+    } else {
+      setRefId(e.target.value)
+    }
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault()
 
@@ -140,7 +149,8 @@ function SignupScreen() {
             type='text'
             ref={queryRef}
             value={refId}
-            onChange={(e) => setReferredBy(e.target.value)}
+            onChange={checkLs}
+            // onChange={e => setRefId(e.target.value)}
             placeholder='Enter referrer phone number'
           />
         </Form.Group>
