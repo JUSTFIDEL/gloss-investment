@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Helmet } from 'react-helmet-async'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { StoreContext } from '../contexts/StoreContext'
 import { toast } from 'react-toastify'
 import { getError } from '../utils'
@@ -22,7 +22,6 @@ function SignupScreen() {
   const redirect = redirectInUrl ? redirectInUrl : '/'
   // const [searchParams, setSearchParams] = useSearchParams()
   // const [query, setQuery] = useState(searchParams.get('query_ref'))
-  const queryRef = useRef()
   const [refId, setRefId] = useState()
 
   const url = 'https://gloss-api.vercel.app/api/users/signup'
@@ -42,9 +41,9 @@ function SignupScreen() {
   const checkLs = (e) => {
     if (localStorage.getItem('query')) {
       const query = localStorage.getItem('query')
-      setRefId(query)
+      setReferredBy(query)
     } else {
-      setRefId(e.target.value)
+      setReferredBy(e.target.value)
     }
   }
 
@@ -56,6 +55,9 @@ function SignupScreen() {
       return
     } else if (!email) {
       toast.error('Enter email')
+      return
+    } else if (!referredBy) {
+      toast.error('Enter referrer phone number')
       return
     } else if (!phone || phone.length !== 11) {
       toast.error('Enter 11 digits phone number')
@@ -95,8 +97,8 @@ function SignupScreen() {
 
   useEffect(() => {
     if (localStorage.getItem('query')) {
-      const query = localStorage.getItem('query')
-      setRefId(query)
+      const query1 = localStorage.getItem('query')
+      setRefId(query1)
     }
 
     if (userInfo) {
@@ -147,10 +149,9 @@ function SignupScreen() {
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
-            ref={queryRef}
-            value={refId}
+            defaultValue={refId}
             onChange={checkLs}
-            // onChange={e => setRefId(e.target.value)}
+            // onChange={(e) => setReferredBy(e.target.value)}
             placeholder='Enter referrer phone number'
           />
         </Form.Group>
