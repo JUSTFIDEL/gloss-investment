@@ -298,6 +298,12 @@ function App() {
                     </NavDropdown.Item>
                   </LinkContainer>
 
+                  <LinkContainer to='/referrals'>
+                    <NavDropdown.Item className='sm-font'>
+                      Referrals
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
                   <NavDropdown.Divider />
 
                   <Link
