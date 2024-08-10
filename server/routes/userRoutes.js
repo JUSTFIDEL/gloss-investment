@@ -80,4 +80,14 @@ userRouter.put(
   })
 )
 
+userRouter.get(
+  '/referrals',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    // const referrals = await User.find({ referredBy: { $exists: true } }).exec()
+    const referrals = await User.find({ referredBy: req.user.phone })
+    res.send(referrals)
+  })
+)
+
 export default userRouter
