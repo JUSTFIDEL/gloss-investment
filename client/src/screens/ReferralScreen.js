@@ -6,9 +6,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { getError } from '../utils'
 import MessageBox from '../components/MessageBox'
-import { useParams } from 'react-router-dom'
-import Button from 'react-bootstrap/esm/Button'
-import { toast } from 'react-toastify'
+// import { useParams } from 'react-router-dom'
+// import Button from 'react-bootstrap/esm/Button'
+// import { toast } from 'react-toastify'
 // import authFetch from '../axios/custom'
 
 const reducer = (state, action) => {
@@ -16,7 +16,7 @@ const reducer = (state, action) => {
     case 'FETCH_REQUEST':
       return { ...state, loading: true }
     case 'FETCH_SUCCESS':
-      return { ...state, orders: action.payload, loading: false }
+      return { ...state, referrals: action.payload, loading: false }
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload }
 
@@ -28,13 +28,13 @@ const reducer = (state, action) => {
 const ReferralScreen = () => {
   const { state } = useContext(StoreContext)
   const { userInfo } = state
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const url = 'https://gloss-api.vercel.app'
   const refLink = `http://localhost:3000/?query=${userInfo.phone}`
   // const refLink = 'https://gross-peach.vercel.app'
 
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, referrals }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   })
@@ -80,12 +80,56 @@ const ReferralScreen = () => {
         <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
         <div>
-          <div className='lg_scr'>
-            {/* for larger view */}
-            {userInfo}
-          </div>
+          <h1>Referrals History</h1>
+          {loading ? (
+            <div className='loading_cont'>
+              <LoadingBox />
+            </div>
+          ) : error ? (
+            <MessageBox variant='danger'>{error}</MessageBox>
+          ) : (
+            <>
+              {/* for larger view */}
+              <div className='lg_scr'>
+                <table className='table'>
+                  <thead>
+                    <tr>
+                      <th>NAME</th>
+                      <th>EMAIL</th>
+                      <th>PHONE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {referrals.map((referral) => (
+                      <tr key={referral._id}>
+                        <td>{referral.name}</td>
+                        <td>{referral.email}</td>
+                        <td>{referral.phone}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-          <div className='div_flex sm_scr'>{/* for mobile view */}</div>
+              {/* for mobile view */}
+              <div className='div_flex sm_scr'>
+                {referrals.map((referral) => (
+                  <div key={referral._id}>
+                    <p>
+                      <strong>NAME:</strong> {referral.name}
+                    </p>
+                    <p>
+                      <strong>EMAIL:</strong> {referral.email}
+                    </p>
+                    <p>
+                      <strong>PHONE:</strong> {referral.phone}
+                    </p>
+                    <hr />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
@@ -93,32 +137,3 @@ const ReferralScreen = () => {
 }
 
 export default ReferralScreen
-
-// const params = useParams()
-// const { slug } = params
-// const navigate = useNavigate()
-
-// const [{ product, error, loading }, dispatch] = useReducer(reducer, {
-//   product: [],
-//   error: '',
-//   loading: true,
-// })
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     dispatch({ type: 'FETCH_REQUEST' })
-//     try {
-//       const result = await axios.get(
-//         `https://gloss-api.vercel.app/api/products/slug/${slug}`
-//       )
-//       // const result = await authFetch(url)
-//       dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
-//     } catch (error) {
-//       dispatch({ type: 'FETCH_FAIL', payload: getError(error) })
-//     }
-//   }
-//   fetchData()
-// }, [slug])
-
-// const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-// const { cart } = state
