@@ -31,8 +31,8 @@ const ReferralScreen = () => {
   // const navigate = useNavigate()
 
   const url = 'https://gloss-api.vercel.app'
-  const refLink = `http://localhost:3000/?query=${userInfo.phone}`
-  // const refLink = 'https://gross-peach.vercel.app'
+  // const refLink = `http://localhost:3000/?query=${userInfo.phone}`
+  const refLink = `https://gross-peach.vercel.app/?query=${userInfo.phone}`
 
   const [{ loading, error, referrals }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -80,7 +80,6 @@ const ReferralScreen = () => {
         <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
         <div>
-          <h1>Referrals History</h1>
           {loading ? (
             <div className='loading_cont'>
               <LoadingBox />
@@ -91,6 +90,7 @@ const ReferralScreen = () => {
             <>
               {/* for larger view */}
               <div className='lg_scr'>
+                <h1>Referrals History</h1>
                 <table className='table'>
                   <thead>
                     <tr>
