@@ -44,7 +44,8 @@ const ReferralScreen = () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
         const { data } = await axios.get(
-          `${url}/api/users/referrals/${userInfo.phone}`,
+          `${url}/api/users/referrals`,
+          // `${url}/api/users/referrals/${userInfo.phone}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
