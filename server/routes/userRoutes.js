@@ -81,20 +81,20 @@ userRouter.put(
 )
 
 userRouter.get(
-  '/refs',
-  expressAsyncHandler(async (req, res) => {
-    const refs = await User.find({ referredBy: req.user.phone })
-
-    res.send(refs)
-  })
-)
-
-userRouter.get(
   '/all',
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({})
 
     res.send(users)
+  })
+)
+
+userRouter.get(
+  '/refs',
+  expressAsyncHandler(async (req, res) => {
+    const refs = await User.find({ referredBy: '08121146164' })
+
+    res.send(refs)
   })
 )
 
