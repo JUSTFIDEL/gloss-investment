@@ -82,11 +82,10 @@ userRouter.put(
 
 userRouter.get(
   '/referrals',
-  isAuth,
   expressAsyncHandler(async (req, res) => {
-    const referrals = await User.find({ referredBy: req.user._id })
+    const refs = await User.find({ referredBy: req.user.phone })
 
-    res.send(referrals)
+    res.send(refs)
   })
 )
 

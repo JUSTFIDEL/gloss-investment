@@ -16,7 +16,7 @@ const reducer = (state, action) => {
     case 'FETCH_REQUEST':
       return { ...state, loading: true }
     case 'FETCH_SUCCESS':
-      return { ...state, referrals: action.payload, loading: false }
+      return { ...state, refs: action.payload, loading: false }
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload }
 
@@ -36,10 +36,10 @@ const ReferralScreen = () => {
   const refLink = `http://localhost:3000/?query=${userInfo.phone}`
   // const refLink = `https://gross-peach.vercel.app/?query=${userInfo.phone}`
 
-  const [{ loading, error, referrals }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, refs }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
-    referrals: [],
+    refs: [],
   })
 
   useEffect(() => {
@@ -101,11 +101,11 @@ const ReferralScreen = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {referrals.map((referral) => (
-                      <tr key={referral._id}>
-                        {/* <td>{referral.name}</td> */}
-                        <td>{referral.email}</td>
-                        <td>{referral.phone}</td>
+                    {refs.map((ref) => (
+                      <tr key={ref._id}>
+                        <td>{ref.name}</td>
+                        <td>{ref.email}</td>
+                        <td>{ref.phone}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -114,14 +114,16 @@ const ReferralScreen = () => {
 
               {/* for mobile view */}
               <div className='div_flex sm_scr'>
-                {referrals.map((referral) => (
-                  <div key={referral._id}>
-                    <p>{/* <strong>NAME:</strong> {referral.name} */}</p>
+                {refs.map((ref) => (
+                  <div key={ref._id}>
                     <p>
-                      <strong>EMAIL:</strong> {referral.email}
+                      <strong>NAME:</strong> {ref.name}
                     </p>
                     <p>
-                      <strong>PHONE:</strong> {referral.phone}
+                      <strong>EMAIL:</strong> {ref.email}
+                    </p>
+                    <p>
+                      <strong>PHONE:</strong> {ref.phone}
                     </p>
                     <hr />
                   </div>

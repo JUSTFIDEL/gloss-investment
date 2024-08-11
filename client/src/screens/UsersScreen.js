@@ -90,7 +90,7 @@ const UsersScreen = () => {
                   <tbody>
                     {users.map((user) => (
                       <tr key={user._id}>
-                        {/* <td>{user.name}</td> */}
+                        <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.phone}</td>
                       </tr>
@@ -103,7 +103,9 @@ const UsersScreen = () => {
               <div className='div_flex sm_scr'>
                 {users.map((user) => (
                   <div key={user._id}>
-                    <p>{/* <strong>NAME:</strong> {user.name} */}</p>
+                    <p>
+                      <strong>NAME:</strong> {user.name}
+                    </p>
                     <p>
                       <strong>EMAIL:</strong> {user.email}
                     </p>
