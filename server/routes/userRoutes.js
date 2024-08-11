@@ -81,7 +81,7 @@ userRouter.put(
 )
 
 userRouter.get(
-  '/referrals',
+  '/:phone',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     // const user = await User.findById(req.user._id)
@@ -92,7 +92,7 @@ userRouter.get(
     // }
     // const filteredValue = req.query.role;
     // const referrals = await User.find({ referredBy: { $exists: true } }).exec()
-    const referrals = await User.find({ referredBy: phone })
+    const referrals = await User.find({ referredBy: req.params.phone })
     res.send(referrals)
   })
 )
