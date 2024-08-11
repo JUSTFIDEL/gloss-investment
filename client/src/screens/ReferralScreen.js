@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer } from 'react'
 import { Helmet } from 'react-helmet-async'
 import LoadingBox from '../components/LoadingBox'
 import { StoreContext } from '../contexts/StoreContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { getError } from '../utils'
 import MessageBox from '../components/MessageBox'
@@ -28,6 +28,8 @@ const reducer = (state, action) => {
 const ReferralScreen = () => {
   const { state } = useContext(StoreContext)
   const { userInfo } = state
+  const params = useParams()
+  const { phone } = params
   // const navigate = useNavigate()
 
   const url = 'https://gloss-api.vercel.app'
@@ -43,6 +45,7 @@ const ReferralScreen = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
+        // const phone = `${userInfo.phone}`
         const { data } = await axios.get(
           `${url}/api/users/${userInfo.phone}`,
           // `${url}/api/users/referrals/${userInfo.phone}`,
@@ -56,16 +59,17 @@ const ReferralScreen = () => {
       }
     }
     fetchData()
-    console.log(userInfo)
-    console.log(referrals)
-  }, [userInfo, referrals])
+    console.log(userInfo.phone)
+    // console.log(referrals)
+    // console.log(phone)
+  }, [userInfo])
   return (
     <div>
       <Helmet>
         <title>Referrals</title>
       </Helmet>
 
-      <h1>Referrals</h1>
+      <h1>Referrals {phone}</h1>
       <Link to={refLink}>
         <p>
           <strong>My Referral Link:</strong> <br />

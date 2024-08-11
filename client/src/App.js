@@ -419,7 +419,7 @@ function App() {
               }
             />
             <Route
-              path='/referrals'
+              path='/referrals/:phone'
               element={
                 <ProtectedRoute>
                   <ReferralScreen />
