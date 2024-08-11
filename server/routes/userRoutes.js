@@ -90,6 +90,16 @@ userRouter.get(
   })
 )
 
+userRouter.get(
+  '/all',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+
+    res.send(users)
+  })
+)
+
 export default userRouter
 
 // To list users with a particular Mongoose value associated with another user in the database, you can use the populate() method in Mongoose. This allows you to reference documents from other collections and fetch related data. You can set up your schema to establish relationships and then perform a query that populates the associated documents based on the specified value.

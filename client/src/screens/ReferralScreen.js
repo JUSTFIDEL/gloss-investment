@@ -44,16 +44,11 @@ const ReferralScreen = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' })
       try {
-        // const phone = `${userInfo.phone}`
-        const { data } = await axios.get(
-          `${url}/api/users/referrals`,
-          // `${url}/api/users/referrals/${userInfo.phone}`,
-          {
-            headers: { Authorization: `Bearer ${userInfo.token}` },
-          }
-        )
+        dispatch({ type: 'FETCH_REQUEST' })
+        const { data } = await axios.get(`${url}/api/users/referrals`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        })
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) })
