@@ -92,7 +92,6 @@ userRouter.get(
 
 userRouter.get(
   '/all',
-  isAuth,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({})
 
