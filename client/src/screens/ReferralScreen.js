@@ -28,8 +28,8 @@ const reducer = (state, action) => {
 const ReferralScreen = () => {
   const { state } = useContext(StoreContext)
   const { userInfo } = state
-  const params = useParams()
-  const { phone } = params
+  // const params = useParams()
+  // const { phone } = params
   // const navigate = useNavigate()
 
   const url = 'https://gloss-api.vercel.app'
@@ -39,6 +39,7 @@ const ReferralScreen = () => {
   const [{ loading, error, referrals }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
+    referrals: [],
   })
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const ReferralScreen = () => {
       try {
         // const phone = `${userInfo.phone}`
         const { data } = await axios.get(
-          `${url}/api/users/${userInfo.phone}`,
+          `${url}/api/users/referrals`,
           // `${url}/api/users/referrals/${userInfo.phone}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -69,7 +70,7 @@ const ReferralScreen = () => {
         <title>Referrals</title>
       </Helmet>
 
-      <h1>Referrals {phone}</h1>
+      <h1>Referrals</h1>
       <Link to={refLink}>
         <p>
           <strong>My Referral Link:</strong> <br />
