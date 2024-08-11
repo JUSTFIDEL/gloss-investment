@@ -84,10 +84,29 @@ userRouter.get(
   '/referrals',
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    const user = await User.find(req.user.phone)
+    if (user) {
+      user.name
+      user.email
+      user.phone
+    }
+    // const filteredValue = req.query.role;
     // const referrals = await User.find({ referredBy: { $exists: true } }).exec()
-    const referrals = await User.find({ referredBy: req.user.phone })
+    const referrals = await User.find({ referredBy: user.phone })
     res.send(referrals)
   })
 )
 
 export default userRouter
+
+// To list users with a particular Mongoose value associated with another user in the database, you can use the populate() method in Mongoose. This allows you to reference documents from other collections and fetch related data. You can set up your schema to establish relationships and then perform a query that populates the associated documents based on the specified value.
+
+// Here's a simplified example:
+
+// User.find({ someField: 'desiredValue' })
+//     .populate('relatedUserField') // Replace with the actual field name
+//     .exec(function (err, users) {
+//         if (err) return handleError(err);
+//         console.log(users);
+//     });
+// Make sure to customize the query and fields based on your specific schema and requirements.

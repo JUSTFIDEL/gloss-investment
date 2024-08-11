@@ -9,6 +9,11 @@ const userSchema = new mongoose.Schema(
     referredBy: { type: String },
     isAdmin: { type: Boolean, default: false, required: true },
     // username: { type: String, required: true },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'User',
+    //   // required: true,
+    // },
   },
   {
     timestamps: true,

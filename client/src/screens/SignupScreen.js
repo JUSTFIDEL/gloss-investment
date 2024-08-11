@@ -56,9 +56,9 @@ function SignupScreen() {
     } else if (!email) {
       toast.error('Enter email')
       return
-    } else if (!referredBy) {
-      toast.error('Enter referrer phone number')
-      return
+      // } else if (!referredBy) {
+      //   toast.error('Enter referrer phone number')
+      //   return
     } else if (!phone || phone.length !== 11) {
       toast.error('Enter 11 digits phone number')
       return
@@ -84,7 +84,9 @@ function SignupScreen() {
         name,
         email,
         phone,
-        referredBy,
+        referredBy: localStorage.getItem('query')
+          ? localStorage.getItem('query')
+          : referredBy,
         password,
       })
       dispatch({ type: 'USER_SIGNIN', payload: data })
@@ -149,7 +151,10 @@ function SignupScreen() {
           <Form.Label>Referred By</Form.Label>
           <Form.Control
             type='text'
-            defaultValue={refId}
+            value={
+              localStorage.getItem('query') ? localStorage.getItem('query') : ''
+            }
+            // defaultValue={refId}
             onChange={checkLs}
             // onChange={(e) => setReferredBy(e.target.value)}
             placeholder='Enter referrer phone number'

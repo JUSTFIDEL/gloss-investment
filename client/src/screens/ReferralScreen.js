@@ -31,8 +31,8 @@ const ReferralScreen = () => {
   // const navigate = useNavigate()
 
   const url = 'https://gloss-api.vercel.app'
-  // const refLink = `http://localhost:3000/?query=${userInfo.phone}`
-  const refLink = `https://gross-peach.vercel.app/?query=${userInfo.phone}`
+  const refLink = `http://localhost:3000/?query=${userInfo.phone}`
+  // const refLink = `https://gross-peach.vercel.app/?query=${userInfo.phone}`
 
   const [{ loading, error, referrals }, dispatch] = useReducer(reducer, {
     loading: true,
