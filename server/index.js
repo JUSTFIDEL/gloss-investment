@@ -6,7 +6,7 @@ import seedRouter from './routes/seedRoutes.js'
 import productRouter from './routes/productRoutes.js'
 import userRouter from './routes/userRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
-import referrerRouter from './routes/referrerRoute.js'
+// import referrerRouter from './routes/referrerRoute.js'
 // import path from 'path'
 
 dotenv.config()
@@ -31,8 +31,8 @@ app.get('/api/keys/paypal', (req, res) => {
 app.use('/api/seeds', seedRouter)
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
-app.use('/api/referral', referrerRouter)
 app.use('/api/orders', orderRouter)
+// app.use('/api/referral', referrerRouter)
 
 // Needed for build when using Heroku for deployment
 // const __dirname = path.resolve()
