@@ -2,8 +2,11 @@ import mongoose from 'mongoose'
 
 const referrerSchema = new mongoose.Schema(
   {
-    referredBy: [
+    referral: [
       {
+        name: { type: String },
+        email: { type: String },
+        phone: { type: String },
         user: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',

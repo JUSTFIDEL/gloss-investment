@@ -12,7 +12,7 @@ referrerRouter.get(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
     if (user) {
-      name = user.name
+      username = user.name
       email = user.email
       phone = user.phone
     }

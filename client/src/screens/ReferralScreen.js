@@ -102,7 +102,7 @@ const ReferralScreen = () => {
                   <tbody>
                     {referrals.map((referral) => (
                       <tr key={referral._id}>
-                        <td>{referral.name}</td>
+                        {/* <td>{referral.name}</td> */}
                         <td>{referral.email}</td>
                         <td>{referral.phone}</td>
                       </tr>
@@ -115,9 +115,7 @@ const ReferralScreen = () => {
               <div className='div_flex sm_scr'>
                 {referrals.map((referral) => (
                   <div key={referral._id}>
-                    <p>
-                      <strong>NAME:</strong> {referral.name}
-                    </p>
+                    <p>{/* <strong>NAME:</strong> {referral.name} */}</p>
                     <p>
                       <strong>EMAIL:</strong> {referral.email}
                     </p>
