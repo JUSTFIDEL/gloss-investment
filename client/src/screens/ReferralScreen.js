@@ -46,19 +46,23 @@ const ReferralScreen = () => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
-        const { data } = await axios.get(`${url}/api/users/referrals`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        })
+        const { data } = await axios.get(
+          `https://gloss-api.vercel.app/api/users/refs`
+          // {
+          //   headers: { Authorization: `Bearer ${userInfo.token}` },
+          // }
+        )
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) })
       }
     }
     fetchData()
-    console.log(userInfo.phone)
-    // console.log(referrals)
+    // console.log(userInfo.phone)
+    // console.log(refs)
     // console.log(phone)
-  }, [userInfo])
+  }, [])
+
   return (
     <div>
       <Helmet>
