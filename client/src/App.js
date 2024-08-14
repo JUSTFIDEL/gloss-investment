@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Link, Route, Routes, useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // import Container from 'react-bootstrap/Container'
@@ -31,6 +31,7 @@ import AdminProductScreen from './screens/AdminProductScreen'
 import AdminOrdersScreen from './screens/AdminOrderScreen'
 import UsersScreen from './screens/UsersScreen'
 import ReferralScreen from './screens/ReferralScreen'
+import ReferralScreen1 from './screens/ReferralScreen1'
 // import ShippingAddressScreen from './screens/BankDetailsScreen'
 // import SearchBox from './components/SearchBox'
 // import Button from 'react-bootstrap/Button'
@@ -38,6 +39,8 @@ import ReferralScreen from './screens/ReferralScreen'
 function App() {
   const { state, dispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
+  const referrerId = useParams()
+  const refff = `${userInfo.phone}`
 
   const signoutHandler = () => {
     dispatch({ type: 'USER_SIGNOUT' })
@@ -123,6 +126,12 @@ function App() {
                   <LinkContainer to='/referrals'>
                     <NavDropdown.Item className='sm-font'>
                       Referrals
+                    </NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer to={`/referrals1/${refff}`}>
+                    <NavDropdown.Item className='sm-font'>
+                      Referrals1 {userInfo.phone}
                     </NavDropdown.Item>
                   </LinkContainer>
 
@@ -423,6 +432,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ReferralScreen />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/referrals1/:referrerId'
+              element={
+                <ProtectedRoute>
+                  <ReferralScreen1 />
                 </ProtectedRoute>
               }
             />
