@@ -40,7 +40,6 @@ function App() {
   const { state, dispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
   const referrerId = useParams()
-  const refff = `${userInfo.phone}`
 
   const signoutHandler = () => {
     dispatch({ type: 'USER_SIGNOUT' })

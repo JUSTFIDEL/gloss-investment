@@ -102,14 +102,16 @@ userRouter.get(
 
 userRouter.get(
   '/my/:referrerId',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const { referrerId } = req.query // Extract query parameters
 
-    // const user = await User.findById(req.user._id)
-
-    const id = await User.find({ referredBy: referrerId })
-
-    res.send(referrerId)
+    if (referrerId) {
+      const referrerData = await User.find({ referredBy: referrerId })
+      res.send(referrerData)
+    } else {
+      res.status(404).send({ message: 'No Referrer yet' })
+    }
   })
 )
 

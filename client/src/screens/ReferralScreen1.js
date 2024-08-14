@@ -16,7 +16,7 @@ const reducer = (state, action) => {
     case 'FETCH_REQUEST':
       return { ...state, loading: true }
     case 'FETCH_SUCCESS':
-      return { ...state, refs1: action.payload, loading: false }
+      return { ...state, referrerData: action.payload, loading: false }
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload }
 
@@ -38,10 +38,10 @@ const ReferralScreen1 = () => {
   const refLink = `http://localhost:3000/?query=${userInfo.phone}`
   // const refLink = `https://gross-peach.vercel.app/?query=${userInfo.phone}`
 
-  const [{ loading, error, refs1 }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, referrerData }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
-    refs1: [],
+    referrerData: [],
   })
 
   useEffect(() => {
@@ -49,10 +49,10 @@ const ReferralScreen1 = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
         const { data } = await axios.get(
-          `https://gloss-api.vercel.app/api/users/my/${userInfo.phone}`
-          // {
-          //   headers: { Authorization: `Bearer ${userInfo.token}` },
-          // }
+          `https://gloss-api.vercel.app/api/users/my/${referrerId}`,
+          {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+          }
         )
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
@@ -60,10 +60,8 @@ const ReferralScreen1 = () => {
       }
     }
     fetchData()
-    // console.log(userInfo.phone)
-    // console.log(refs)
-    // console.log(phone)
-  }, [userInfo.phone])
+    console.log(referrerData)
+  }, [userInfo.token, referrerId, referrerData])
 
   return (
     <div>
@@ -76,6 +74,7 @@ const ReferralScreen1 = () => {
         <p>
           <strong>My Referral Link:</strong> <br />
           {refLink}
+          {referrerData}
         </p>
       </Link>
 
@@ -86,58 +85,59 @@ const ReferralScreen1 = () => {
       ) : error ? (
         <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
-        <div>
-          {loading ? (
-            <div className='loading_cont'>
-              <LoadingBox />
-            </div>
-          ) : error ? (
-            <MessageBox variant='danger'>{error}</MessageBox>
-          ) : (
-            <>
-              {/* for larger view */}
-              <div className='lg_scr'>
-                <h1>Referrals History</h1>
-                <table className='table'>
-                  <thead>
-                    <tr>
-                      <th>NAME</th>
-                      <th>EMAIL</th>
-                      <th>PHONE</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {refs1.map((ref) => (
-                      <tr key={ref._id}>
-                        <td>{ref.name}</td>
-                        <td>{ref.email}</td>
-                        <td>{ref.phone}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+        // <div>
+        //   {loading ? (
+        //     <div className='loading_cont'>
+        //       <LoadingBox />
+        //     </div>
+        //   ) : error ? (
+        //     <MessageBox variant='danger'>{error}</MessageBox>
+        //   ) : (
+        //     <>
+        //       {/* for larger view */}
+        //       <div className='lg_scr'>
+        //         <h1>Referrals History</h1>
+        //         <table className='table'>
+        //           <thead>
+        //             <tr>
+        //               <th>NAME</th>
+        //               <th>EMAIL</th>
+        //               <th>PHONE</th>
+        //             </tr>
+        //           </thead>
+        //           <tbody>
+        //             {refData.map((ref) => (
+        //               <tr key={ref._id}>
+        //                 <td>{ref.name}</td>
+        //                 <td>{ref.email}</td>
+        //                 <td>{ref.phone}</td>
+        //               </tr>
+        //             ))}
+        //           </tbody>
+        //         </table>
+        //       </div>
 
-              {/* for mobile view */}
-              <div className='div_flex sm_scr'>
-                {refs1.map((ref) => (
-                  <div key={ref._id}>
-                    <p>
-                      <strong>NAME:</strong> {ref.name}
-                    </p>
-                    <p>
-                      <strong>EMAIL:</strong> {ref.email}
-                    </p>
-                    <p>
-                      <strong>PHONE:</strong> {ref.phone}
-                    </p>
-                    <hr />
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+        //       {/* for mobile view */}
+        //       <div className='div_flex sm_scr'>
+        //         {refData.map((ref) => (
+        //           <div key={ref._id}>
+        //             <p>
+        //               <strong>NAME:</strong> {ref.name}
+        //             </p>
+        //             <p>
+        //               <strong>EMAIL:</strong> {ref.email}
+        //             </p>
+        //             <p>
+        //               <strong>PHONE:</strong> {ref.phone}
+        //             </p>
+        //             <hr />
+        //           </div>
+        //         ))}
+        //       </div>
+        //     </>
+        //   )}
+        // </div>
+        <>{referrerData}</>
       )}
     </div>
   )
