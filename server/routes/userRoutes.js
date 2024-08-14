@@ -101,7 +101,7 @@ userRouter.get(
 )
 
 userRouter.get(
-  '/:referrerId',
+  '/my/:referrerId',
   expressAsyncHandler(async (req, res) => {
     const { referrerId } = req.query // Extract query parameters
 

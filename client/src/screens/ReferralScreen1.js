@@ -49,7 +49,7 @@ const ReferralScreen1 = () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
         const { data } = await axios.get(
-          `https://gloss-api.vercel.app/api/users/${userInfo.phone}`
+          `https://gloss-api.vercel.app/api/users/my/${userInfo.phone}`
           // {
           //   headers: { Authorization: `Bearer ${userInfo.token}` },
           // }

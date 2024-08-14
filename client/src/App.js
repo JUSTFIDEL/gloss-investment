@@ -129,9 +129,9 @@ function App() {
                     </NavDropdown.Item>
                   </LinkContainer>
 
-                  <LinkContainer to={`/referrals1/${refff}`}>
+                  <LinkContainer to={`/referrals1/${userInfo.phone}`}>
                     <NavDropdown.Item className='sm-font'>
-                      Referrals1 {userInfo.phone}
+                      Referrals1
                     </NavDropdown.Item>
                   </LinkContainer>
 
