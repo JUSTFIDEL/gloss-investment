@@ -128,7 +128,7 @@ function App() {
                     </NavDropdown.Item>
                   </LinkContainer>
 
-                  <LinkContainer to={`/referrals1/${userInfo.phone}`}>
+                  <LinkContainer to={`/referrals1/query=${userInfo.phone}`}>
                     <NavDropdown.Item className='sm-font'>
                       Referrals1
                     </NavDropdown.Item>
