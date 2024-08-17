@@ -80,16 +80,16 @@ userRouter.put(
   })
 )
 
-userRouter.get(
-  '/refs',
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id)
+// userRouter.get(
+//   '/refs',
+//   expressAsyncHandler(async (req, res) => {
+//     const user = await User.findById(req.user._id)
 
-    const id = await User.find({ referredBy: '08121146164' })
+//     const id = await User.find({ referredBy: '08121146164' })
 
-    res.send(refs)
-  })
-)
+//     res.send(refs)
+//   })
+// )
 
 userRouter.get(
   '/my/:referrerId',

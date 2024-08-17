@@ -122,15 +122,15 @@ function App() {
                     </NavDropdown.Item>
                   </LinkContainer>
 
-                  <LinkContainer to='/referrals'>
+                  {/* <LinkContainer to='/referrals'>
                     <NavDropdown.Item className='sm-font'>
                       Referrals
                     </NavDropdown.Item>
-                  </LinkContainer>
+                  </LinkContainer> */}
 
-                  <LinkContainer to={`/referrals1/query=${userInfo.phone}`}>
+                  <LinkContainer to={`/referrals/query=${userInfo.phone}`}>
                     <NavDropdown.Item className='sm-font'>
-                      Referrals1
+                      Referrals
                     </NavDropdown.Item>
                   </LinkContainer>
 
@@ -260,6 +260,11 @@ function App() {
                       Orders
                     </NavDropdown.Item>
                   </LinkContainer>
+                  <LinkContainer to={`/referrals/query=${userInfo.phone}`}>
+                    <NavDropdown.Item className='sm-font'>
+                      Referrals
+                    </NavDropdown.Item>
+                  </LinkContainer>
                   <LinkContainer to='/admin/userlist'>
                     <NavDropdown.Item className='sm-font'>
                       Users
@@ -306,7 +311,13 @@ function App() {
                     </NavDropdown.Item>
                   </LinkContainer>
 
-                  <LinkContainer to='/referrals'>
+                  {/* <LinkContainer to='/referrals'>
+                    <NavDropdown.Item className='sm-font'>
+                      Referrals
+                    </NavDropdown.Item>
+                  </LinkContainer> */}
+
+                  <LinkContainer to={`/referrals/query=${userInfo.phone}`}>
                     <NavDropdown.Item className='sm-font'>
                       Referrals
                     </NavDropdown.Item>
@@ -426,16 +437,16 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
+            {/* <Route
               path='/referrals'
               element={
                 <ProtectedRoute>
                   <ReferralScreen />
                 </ProtectedRoute>
               }
-            />
+            /> */}
             <Route
-              path='/referrals1/:referrerId'
+              path='/referrals/:referrerId'
               element={
                 <ProtectedRoute>
                   <ReferralScreen1 />

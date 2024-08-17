@@ -48,13 +48,15 @@ const ReferralScreen1 = () => {
     myReferrer: [],
   })
 
+  // setReferrerId(userInfo.phone)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
-        setReferrerId(userInfo.phone)
+
         const { data } = await axios.get(
-          `https://gloss-api.vercel.app/api/users/my/${referrerId}`,
+          `https://gloss-api.vercel.app/api/users/my/${userInfo.phone}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
