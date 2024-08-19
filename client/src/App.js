@@ -118,7 +118,7 @@ function App() {
 
                   <LinkContainer to='/orderhistory'>
                     <NavDropdown.Item className='sm-font'>
-                      Order History
+                      Investments
                     </NavDropdown.Item>
                   </LinkContainer>
 
@@ -219,7 +219,7 @@ function App() {
 
 									<LinkContainer to='/orderhistory'>
 										<NavDropdown.Item className='sm-font'>
-											Order History
+											Investments
 										</NavDropdown.Item>
 									</LinkContainer>
 
@@ -279,7 +279,7 @@ function App() {
 
                   <LinkContainer to='/orderhistory'>
                     <NavDropdown.Item className='sm-font'>
-                      Order History
+                      Investments
                     </NavDropdown.Item>
                   </LinkContainer>
 
@@ -307,7 +307,7 @@ function App() {
 
                   <LinkContainer to='/orderhistory'>
                     <NavDropdown.Item className='sm-font'>
-                      Order History
+                      Investments
                     </NavDropdown.Item>
                   </LinkContainer>
 

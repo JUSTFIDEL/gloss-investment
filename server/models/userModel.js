@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     referredBy: { type: String },
     isAdmin: { type: Boolean, default: false, required: true },
+    bonus: { type: Number, default: 0 },
     // username: { type: String, required: true },
     // user: {
     //   type: mongoose.Schema.Types.ObjectId,

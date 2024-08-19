@@ -167,6 +167,13 @@ header {
   margin: 10px 0;
 }
 
+.pos_tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 5px;
+}
+
 .btn-outline-primary:hover {
   background-color: var(--white);
   color: var(--primary_hover);
@@ -226,7 +233,7 @@ header a {
 }
 
 header i {
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
 
 .textGray {
@@ -395,6 +402,16 @@ header i {
 main {
   flex: 1;
   margin: 5rem 1rem 2rem;
+}
+
+.ref_bod {
+  background-color: whitesmoke;
+  border: 1px solid rgb(136, 136, 136);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  max-width: 450px;
+  width: 100%;
 }
 
 /* Products */
@@ -665,6 +682,12 @@ footer {
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
+}
+
+.iFlex1 {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .spacing0 {

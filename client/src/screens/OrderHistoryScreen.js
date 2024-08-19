@@ -52,10 +52,10 @@ export default function OrderHistoryScreen() {
   return (
     <div>
       <Helmet>
-        <title>Order History</title>
+        <title>Investment History</title>
       </Helmet>
 
-      <h1>Order History</h1>
+      <h1>Investment History</h1>
       {loading ? (
         <div className='loading_cont'>
           <LoadingBox />
