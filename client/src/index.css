@@ -169,9 +169,18 @@ header {
 
 .pos_tr {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -15px;
+  right: -40px;
   margin-left: 5px;
+}
+
+.flash_Mes {
+  position: absolute;
+  top: -25px;
+  right: 10px;
+  margin-left: 5px;
+  color: rgb(3, 124, 3);
+  font-size: 13px;
 }
 
 .btn-outline-primary:hover {

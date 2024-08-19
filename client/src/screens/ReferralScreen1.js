@@ -34,6 +34,7 @@ const ReferralScreen1 = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const [referrerId, setReferrerId] = useState(searchParams.get('query'))
+  const [message, setMessage] = useState('')
 
   // const params = useParams()
   // const { refno } = params
@@ -75,6 +76,25 @@ const ReferralScreen1 = () => {
     fetchData()
   }, [userInfo, referrerId])
 
+  const copyToClipboard = () => {
+    const copyVal = navigator.clipboard.writeText(
+      `https://gross-peach.vercel.app/?query=${userInfo.phone}`
+    )
+
+    copyVal
+      .then(() => {
+        setMessage('copied')
+      })
+      .catch(() => {
+        setMessage('copy failed')
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setMessage('')
+        }, 1000)
+      })
+  }
+
   return (
     <div>
       <Helmet>
@@ -88,14 +108,22 @@ const ReferralScreen1 = () => {
             <span className='green_1'>My Referral Link:</span> <br />
             {refLink}
           </p>
-          <i class='fa-regular fa-copy pos_tr'></i>
+          <Button
+            type='button'
+            variant='light'
+            className='pos_tr'
+            onClick={() => copyToClipboard()}
+          >
+            <i class='fa-regular fa-copy'></i>
+          </Button>
+          <span className='flash_Mes'>{message}</span>
         </div>
         <div className='ref_bod'>
           <p>
             <span className='green_1'>Referral Bonus:</span>
           </p>
           <p>₦0.00</p>
-          <Button type='button' variant='success'>
+          <Button type='button' variant='success' disabled>
             Withdraw Bonus
           </Button>
           <p className='red'>
