@@ -273,6 +273,35 @@ header i {
   cursor: pointer;
 }
 
+.dis_flex1 {
+  display: flex;
+  /* justify-content: space-between;
+  align-items: center; */
+  gap: 10px;
+}
+
+.wa_green {
+  background: var(--primary_hover);
+}
+
+.x_blue {
+  background: #1DA1F2;
+}
+
+.fb_blue {
+  background: #4267B2;
+}
+
+.ref_icon_cont {
+  border-radius: 50%;
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @keyframes flowRight {
   0% {
     transform: translateX(250px);
