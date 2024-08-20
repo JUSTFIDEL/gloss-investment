@@ -83,7 +83,7 @@ const ReferralScreen1 = () => {
 
     copyVal
       .then(() => {
-        setMessage('copied')
+        setMessage('copied ✔✔')
       })
       .catch(() => {
         setMessage('copy failed')
@@ -101,39 +101,49 @@ const ReferralScreen1 = () => {
         <title>Referrals</title>
       </Helmet>
 
-      <h1>Referral History</h1>
       <div className='iFlex1'>
-        <div className='p_rel'>
-          <p>
-            <span className='green_1'>My Referral Link:</span> <br />
-            {refLink}
-          </p>
-          <Button
-            type='button'
-            variant='light'
-            className='pos_tr'
-            onClick={() => copyToClipboard()}
-          >
-            <i class='fa-regular fa-copy'></i>
-          </Button>
-          <span className='flash_Mes'>{message}</span>
+        <div className='mw-350'>
+          <div className='mb1'>
+            <h1 className='refer_head'>Refer friends and earn.</h1>
+            <p className='refer_info'>
+              Invite your friends and earn 10% of their first investment as
+              referral reward.
+            </p>
+          </div>
+
+          <div className='p_rel'>
+            <p>
+              <span className='green_1'>Referral Link:</span> <br />
+              <span className='ref_link'>{refLink}</span>
+            </p>
+
+            <span onClick={() => copyToClipboard()}>
+              <i className='fa-regular fa-copy pos_tr cur_ptr'></i>
+            </span>
+
+            <span className='flash_Mes'>{message}</span>
+          </div>
         </div>
+
         <div className='ref_bod'>
+          <span className='green_1'>Referral Bonus:</span>
+
           <p>
-            <span className='green_1'>Referral Bonus:</span>
-          </p>
-          <p>
-            <strong>Amount: </strong>₦{userInfo.bonus}
-            {/* <strong>Amount: </strong>₦{userInfo.bonus.toLocaleString()} */}
+            <strong>Amount: </strong>₦{userInfo.bonus.toLocaleString()}
           </p>
           <Button type='button' variant='success' disabled>
             Withdraw Bonus
           </Button>
-          <p className='red'>
-            NB: Bonus can only be withdrawn on the first day of each month.
-          </p>
+          <br />
+          <span className='red1'>
+            NB: Can only be withdrawn once, on the 1st of each month.
+          </span>
         </div>
       </div>
+
+      <p>
+        <span className='green_1'>My Referrals:</span>
+      </p>
       {loading ? (
         <div className='loading_cont'>
           <LoadingBox />
