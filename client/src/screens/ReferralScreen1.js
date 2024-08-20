@@ -122,7 +122,9 @@ const ReferralScreen1 = () => {
           <p>
             <span className='green_1'>Referral Bonus:</span>
           </p>
-          <p>₦0.00</p>
+          <p>
+            <strong>Amount: </strong>₦{userInfo.bonus.toLocaleString()}
+          </p>
           <Button type='button' variant='success' disabled>
             Withdraw Bonus
           </Button>
