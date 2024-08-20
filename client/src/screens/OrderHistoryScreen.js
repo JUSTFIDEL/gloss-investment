@@ -86,15 +86,21 @@ export default function OrderHistoryScreen() {
                     {/* <td>{order.isPaid ? order.paidAt : 'No'}</td> */}
                     <td>{order.isDue ? 'Yes' : 'No'}</td>
                     <td>
-                      <Button
-                        type='button'
-                        variant='light'
-                        onClick={() => {
-                          navigate(`/order/${order._id}`)
-                        }}
-                      >
-                        Details
-                      </Button>
+                      {order.payReceived ? (
+                        <Button type='button' variant='light' disabled>
+                          Closed
+                        </Button>
+                      ) : (
+                        <Button
+                          type='button'
+                          variant='light'
+                          onClick={() => {
+                            navigate(`/order/${order._id}`)
+                          }}
+                        >
+                          Details
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 ))}

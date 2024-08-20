@@ -307,6 +307,10 @@ header i {
   justify-content: center;
 }
 
+.dis00 {
+  display: none;
+}
+
 @keyframes flowRight {
   0% {
     transform: translateX(250px);

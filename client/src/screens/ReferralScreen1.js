@@ -44,6 +44,9 @@ const ReferralScreen1 = () => {
   // const refLink = `http://localhost:3000/?query=${userInfo.phone}`
   const refLink = `https://gross-peach.vercel.app/?query=${userInfo.phone}`
 
+  const date = new Date() // Replace with your date
+  const isFirstOfMonth = date.getDate() === 1
+
   const [{ loading, error, myReferrer }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -158,9 +161,16 @@ const ReferralScreen1 = () => {
           <p>
             <strong>Amount: </strong>₦{userInfo.bonus.toLocaleString()}
           </p>
-          <Button type='button' variant='success' disabled>
-            Withdraw Bonus
-          </Button>
+          {isFirstOfMonth ? (
+            <Button type='button' variant='success'>
+              Withdraw Bonus
+            </Button>
+          ) : (
+            <Button type='button' variant='light' className='dis00'>
+              Withdraw Bonus
+            </Button>
+          )}
+
           <br />
           <span className='red1'>
             NB: Can only be withdrawn once, on the 1st of each month.
