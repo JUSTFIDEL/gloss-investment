@@ -125,25 +125,25 @@ const ReferralScreen1 = () => {
           </div>
 
           <div className='dis_flex1 mb1'>
-            <span className='green_1'>Share Link:</span> <br />
+            <span className='share_des'>Share Link:</span> <br />
             <Link
               to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont wa_green'
             >
               <i class='fa-brands fa-whatsapp'></i>
             </Link>
-            <Link
+            {/* <Link
               to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont x_blue'
             >
               <i class='fa-brands fa-x-twitter'></i>
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont fb_blue'
             >
               <i class='fa-brands fa-facebook-f'></i>
-            </Link>
+            </Link> */}
           </div>
         </div>
 

@@ -275,9 +275,14 @@ header i {
 
 .dis_flex1 {
   display: flex;
-  /* justify-content: space-between;
-  align-items: center; */
-  gap: 10px;
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: 5px;
+}
+
+.share_des {
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .wa_green {
@@ -285,11 +290,11 @@ header i {
 }
 
 .x_blue {
-  background: #1DA1F2;
+  background: #1da1f2;
 }
 
 .fb_blue {
-  background: #4267B2;
+  background: #4267b2;
 }
 
 .ref_icon_cont {
