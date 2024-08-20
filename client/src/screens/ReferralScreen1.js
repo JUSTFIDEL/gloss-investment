@@ -107,7 +107,7 @@ const ReferralScreen1 = () => {
             <h1 className='refer_head'>Refer friends and earn.</h1>
             <p className='refer_info'>
               Invite your friends and earn 10% of their first investment as
-              referral reward.
+              referral bonus.
             </p>
           </div>
 
@@ -129,18 +129,23 @@ const ReferralScreen1 = () => {
             <Link
               to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont wa_green'
+              target='_blank'
             >
               <i class='fa-brands fa-whatsapp'></i>
             </Link>
             {/* <Link
               to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont x_blue'
+                                    target='_blank'
+
             >
               <i class='fa-brands fa-x-twitter'></i>
             </Link> */}
             {/* <Link
               to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont fb_blue'
+                                    target='_blank'
+
             >
               <i class='fa-brands fa-facebook-f'></i>
             </Link> */}
