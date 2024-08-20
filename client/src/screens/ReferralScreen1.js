@@ -126,16 +126,22 @@ const ReferralScreen1 = () => {
 
           <div className='dis_flex1 mb1'>
             <span className='green_1'>Share Link:</span> <br />
-            <div
-              onclick="window.open('whatsapp://send?text=This is WhatsApp sharing example using button')"
+            <Link
+              to={`https://wa.me/?text=${refLink}`}
               className='ref_icon_cont wa_green'
             >
               <i class='fa-brands fa-whatsapp'></i>
-            </div>
-            <Link to='' className='ref_icon_cont x_blue'>
+            </Link>
+            <Link
+              to={`https://wa.me/?text=${refLink}`}
+              className='ref_icon_cont x_blue'
+            >
               <i class='fa-brands fa-x-twitter'></i>
             </Link>
-            <Link to='' className='ref_icon_cont fb_blue'>
+            <Link
+              to={`https://wa.me/?text=${refLink}`}
+              className='ref_icon_cont fb_blue'
+            >
               <i class='fa-brands fa-facebook-f'></i>
             </Link>
           </div>
