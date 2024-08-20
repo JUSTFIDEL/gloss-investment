@@ -50,6 +50,8 @@ const orderSchema = new mongoose.Schema(
     isDue: { type: Boolean, default: false },
     paidAt: { type: String, required: true },
     dueAt: { type: String, required: true },
+    payReceived: { type: Boolean, default: false },
+
     // isDelivered: { type: Boolean, default: false },
     // deliveredAT: { type: Date },
   },
