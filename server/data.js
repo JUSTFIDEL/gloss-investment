@@ -15,6 +15,7 @@ const data = {
       password: bcrypt.hashSync('Pass@1234$'),
       referredBy: '08116274484',
       isAdmin: true,
+      bonus: 0,
     },
     {
       name: 'fideBABA',
@@ -23,6 +24,7 @@ const data = {
       password: bcrypt.hashSync('Pass@1234$'),
       referredBy: '08121146164',
       isAdmin: false,
+      bonus: 0,
     },
   ],
 

@@ -20,6 +20,7 @@ userRouter.post(
           phone: user.phone,
           referredBy: user.referredBy,
           isAdmin: user.isAdmin,
+          bonus: user.bonus,
           token: generateToken(user),
         })
         return
