@@ -659,13 +659,13 @@ footer {
 
 .p_abs {
   position: absolute;
-  right: 0;
+  right: 10px;
 }
 
-.x30 {
-  width: 60px;
+/* .x30 {
+  width: 30px;
   height: 30px;
-}
+} */
 
 .mt10 {
   margin-top: 4rem;
