@@ -68,7 +68,7 @@ export default function OrderHistoryScreen() {
             <table className='table'>
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>PLAN</th>
                   <th>DATE</th>
                   <th>TOTAL</th>
                   <th>PAID</th>
@@ -79,9 +79,9 @@ export default function OrderHistoryScreen() {
               <tbody>
                 {orders.map((order) => (
                   <tr key={order._id}>
-                    <td>{order._id}</td>
+                    <td>{order.orderItems[0].name}</td>
                     <td>{order.createdAt.substring(0, 10)}</td>
-                    <td>₦{order.totalPrice.toFixed(2)}</td>
+                    <td>₦{order.totalPrice.toLocaleString()}</td>
                     <td>{order.isPaid ? 'Yes' : 'No'}</td>
                     {/* <td>{order.isPaid ? order.paidAt : 'No'}</td> */}
                     <td>{order.isDue ? 'Yes' : 'No'}</td>
@@ -112,7 +112,7 @@ export default function OrderHistoryScreen() {
             {orders.map((order) => (
               <div key={order._id}>
                 <p>
-                  <strong>ID:</strong> {order._id}
+                  <strong>PLAN:</strong> {order._id}
                 </p>
                 <p>
                   <strong>DATE:</strong> {order.createdAt.substring(0, 10)}

@@ -56,7 +56,9 @@ export default function PlaceOrderScreen() {
   // cart.paidAt = new Date().toLocaleString()
 
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10)
-  const percentage = cart.itemsPrice > 200000 ? 0.4 : 0.3
+  const percentage =
+    cart.itemsPrice > 500000 ? 0.4 : cart.itemsPrice > 200000 ? 0.35 : 0.3
+
   // cart.taxPrice = round2({ getTax } * cart.itemsPrice)
   // cart.taxPrice = round2(
   //   `{${cart.itemsPrice} > 200000 ? 0.4 : 0.3}` * cart.itemsPrice
