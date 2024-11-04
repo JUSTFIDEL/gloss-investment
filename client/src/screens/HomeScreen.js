@@ -72,7 +72,7 @@ const HomeScreen = () => {
   return (
     <div className='sm_container'>
       <Helmet>
-        <title>Home | Gross</title>
+        <title>Home | Grosss</title>
       </Helmet>
       {!userInfo && (
         <div>
@@ -84,7 +84,7 @@ const HomeScreen = () => {
           <div className='hero_cont'>
             <div className='hero_text'>
               <p className='p_fadeOff textGray'>
-                {/* Welcome! In Gross, we believe in the power of collaboration and
+                {/* Welcome! In Grosss, we believe in the power of collaboration and
               mutual support among our members. By coming together and pooling
               our resources, we are able to build a larger capital base that
               opens up greater opportunities for investment. <br />
@@ -94,7 +94,7 @@ const HomeScreen = () => {
               Our shared goal is to work together towards financial growth and
               success, leveraging the strength of our combined resources to
               secure a brighter future for all members involved. */}
-                Welcome! At Gross, we emphasize the strength of collaboration
+                Welcome! At Grosss, we emphasize the strength of collaboration
                 and support among our members. By uniting and combining
                 resources, we can expand our capital base for diverse investment
                 opportunities. This strategy enables us to invest in various

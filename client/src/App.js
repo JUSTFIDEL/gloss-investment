@@ -458,7 +458,7 @@ function App() {
         </main>
 
         <footer>
-          <div className='mt11 mt10'>{`All rights reserved - Gross Inv. ©${new Date().getFullYear()}`}</div>
+          <div className='mt11 mt10'>{`All rights reserved - Grosss Investment. ©${new Date().getFullYear()}`}</div>
         </footer>
       </div>
     </BrowserRouter>

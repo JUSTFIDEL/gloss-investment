@@ -54,7 +54,7 @@ function CartScreen() {
       <Helmet>
         <title>Cart</title>
       </Helmet>
-      <h1>Investment Cart</h1>
+      <h1>Investment Details</h1>
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -75,7 +75,8 @@ function CartScreen() {
                         alt={item.name}
                         className='img-fluid rounded img-thumbnail'
                       ></img>{' '}
-                      <Link to={`/product/${item._id}`} className='text2'>
+                      {/* <Link to={`/product/${item._id}`} className='text2'> */}
+                      <Link to='/' className='text2'>
                         <span className='green_1'>{item.name}</span>
                       </Link>
                     </Col>

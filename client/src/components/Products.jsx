@@ -34,12 +34,13 @@ const Products = ({ product }) => {
   }
 
   return (
+    // <Link to={`/product/${product.slug}`}>
     <div key={product.slug} className='product'>
       <Link to={`/product/${product.slug}`}>
         <img alt={product.name} src={product.image} />
       </Link>
       <div className='product-info'>
-        <Link to={`/product/${product._slug}`}>
+        <Link to={`/product/${product.slug}`}>
           <p className='p-name'>{product.name} Package</p>
         </Link>
         <Rating
@@ -54,12 +55,16 @@ const Products = ({ product }) => {
             Out of Stock
           </button>
         ) : (
-          <button onClick={() => addToCartHandler(product)} className='pro-but'>
+          // <button onClick={() => addToCartHandler(product)} className='pro-but'>
+          //   Select
+          // </button>
+          <Link to={`/product/${product.slug}`} className='pro-but'>
             Select
-          </button>
+          </Link>
         )}
       </div>
     </div>
+    // </Link>
   )
 
   // return (
